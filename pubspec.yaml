@@ -38,6 +38,10 @@ dependencies:
   ionicons: ^0.2.2
   # for url navigation
   go_router: ^14.6.3
+  #for preferences
+  shared_preferences: ^2.3.5
+  # for Locale in both mobile and web
+  universal_io: ^2.2.2
   # for i10
   flutter_localizations:
     sdk: flutter
