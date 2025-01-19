@@ -1,0 +1,11 @@
+{
+    "language": "English",
+    "@language": {
+        "description": "The current language"
+    },
+
+    "helloWorld" : "Hello world",
+    "@helloWorld" : {
+        "description": "A greeting"
+    }
+}
