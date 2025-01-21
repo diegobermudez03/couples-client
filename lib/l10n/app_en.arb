@@ -7,5 +7,20 @@
     "helloWorld" : "Hello world",
     "@helloWorld" : {
         "description": "A greeting"
+    },
+
+    "loginWith" : "Login with",
+    "@loginWith" : {
+        "description": "A login description"
+    },
+
+    "youreNewQuestion" : "You're new?",
+    "@youreNewQuestion" : {
+        "description": "Question to user if is new"
+    },
+
+    "registerHere" : "Register here!",
+    "@registerHere" : {
+        "description": "Indication to register"
     }
 }

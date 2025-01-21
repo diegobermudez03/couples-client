@@ -1,4 +1,7 @@
 {
     "language": "Español",
-    "helloWorld" : "Hola mundo"
+    "helloWorld" : "Hola mundo",
+    "loginWith" : "Inicia sesion con",
+    "youreNewQuestion" : "Eres nuev@?",
+    "registerHere" : "Registrate aqui!"
 }

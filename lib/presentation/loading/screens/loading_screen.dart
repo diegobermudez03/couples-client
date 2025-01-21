@@ -20,21 +20,19 @@ class LoadingScreen extends StatelessWidget {
           }
         },
         child: Center(
-          child: Container(
-            child: Lottie.asset(
-              'animations/general/loading_placeholder.json',
-              fit: BoxFit.fitHeight,
-              width: 500,
-              height: 500,
-              delegates: LottieDelegates(
-                text: (initialText) => '**$initialText**',
-                values: [
-                  ValueDelegate.color(
-                    const ['Rectangle_1', '**'],
-                    value: Colors.red,
-                  ),
-                ],
-              ),
+          child: Lottie.asset(
+            'assets/animations/general/loading_placeholder.json',
+            fit: BoxFit.fitHeight,
+            width: 400,
+            height: 400,
+            delegates: LottieDelegates(
+              text: (initialText) => '**$initialText**',
+              values: [
+                ValueDelegate.color(
+                  const ['Rectangle_1', '**'],
+                  value: Colors.red,
+                ),
+              ],
             ),
           ),
         ),

@@ -25,8 +25,9 @@ class SecureStorageServImpl implements SecureStorageService{
 class SecureStorageMock implements SecureStorageService{
    @override
   Future<String?> readValue(String key) async{
-    return "dsjfhdjhgjdfj";
-  } 
+    await Future.delayed(Duration(seconds: 2));
+    return null;
+  }
 
   @override
   Future<void> writeValue(String key, String value) async{
