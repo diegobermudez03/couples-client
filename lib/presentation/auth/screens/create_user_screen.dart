@@ -1,12 +1,10 @@
-
-
 import 'package:flutter/material.dart';
 
-class LoginScreen extends StatelessWidget{
+class CreateUserScreen extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Text("login page"),
+      body: Text("create user page "),
     );
   }
 }

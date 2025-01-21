@@ -1,0 +1,5 @@
+import 'package:tuple/tuple.dart';
+
+abstract class AuthRepo{
+  Future<Tuple2<String, Error?>> getUserStatus(String refreshToken);
+}
