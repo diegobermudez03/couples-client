@@ -22,5 +22,43 @@
     "registerHere" : "Register here!",
     "@registerHere" : {
         "description": "Indication to register"
+    },
+
+    "introTitlePage1" : "Title for page 1",
+    "@introTitlePage1" : {
+        "description": "the title for page 1"
+    },
+    "introTitlePage2" : "Title for page 2",
+    "@introTitlePage2" : {
+        "description": "the title for page 2"
+    },
+    "introTitlePage3" : "Title for page 3",
+    "@introTitlePage3" : {
+        "description": "the title for page 3"
+    },
+    "introTitlePage4" : "Title for page 4",
+    "@introTitlePage4" : {
+        "description": "the title for page 4"
+    },
+    "descIntroPage1" : "this is a long description for page 1, here we talk a lot, a long description, this is what it is, oh yeah.",
+    "@descIntroPage1": {
+        "description": "description for page 1"
+    },
+    "descIntroPage2" : "this is a long description for page 2, here we talk a lot, a long description, this is what it is, oh yeah.",
+    "@descIntroPage2": {
+        "description": "description for page 2"
+    },
+    "descIntroPage3" : "this is a long description for page 3, here we talk a lot, a long description, this is what it is, oh yeah.",
+    "@descIntroPage3": {
+        "description": "description for page 3"
+    },
+    "descIntroPage4" : "this is a long description for page 4, here we talk a lot, a long description, this is what it is, oh yeah.",
+    "@descIntroPage4": {
+        "description": "description for page 4"
+    },
+
+    "connectWithoutAccount" : "Connect with partner without account",
+    "@connectWithoutAccount": {
+        "description": "to connect without account"
     }
 }

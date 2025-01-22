@@ -32,8 +32,8 @@ class MyApp extends StatelessWidget {
       title: 'Couples app',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme),
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0x87ceeb)),
+        textTheme: GoogleFonts.robotoTextTheme(Theme.of(context).textTheme),
         useMaterial3: true,
       ),
       supportedLocales: L10n.all,

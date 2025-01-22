@@ -1,5 +1,6 @@
 import 'package:couples_client_app/core/navigation/router.dart';
 import 'package:couples_client_app/presentation/loading/bloc/loading_bloc.dart';
+import 'package:couples_client_app/shared/helpers/func_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -21,7 +22,7 @@ class LoadingScreen extends StatelessWidget {
         },
         child: Center(
           child: Lottie.asset(
-            'assets/animations/general/loading_placeholder.json',
+            getAsset('animations/general/loading_placeholder.json'),
             fit: BoxFit.fitHeight,
             width: 400,
             height: 400,
