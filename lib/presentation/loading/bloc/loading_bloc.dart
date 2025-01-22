@@ -13,12 +13,12 @@ class LoadingBloc extends Cubit<LoadingState>{
   void checkInitialPage() async{
     final rfToken = await _storage.readValue('refresh_token');
     if(rfToken == null){
-      emit(GoToLoginPageState());
+      emit(GoToWelcomePage());
       return;
     }
     final status = await _authRepo.getUserStatus(rfToken);
     if(status.item2 != null){
-      emit(GoToLoginPageState());
+      emit(GoToWelcomePage());
       return;
     }
     switch(status.item1){
@@ -32,7 +32,7 @@ class LoadingBloc extends Cubit<LoadingState>{
         emit(GoToMainPageState());
         break;
       default:
-        emit(GoToLoginPageState());
+        emit(GoToWelcomePage());
         break;
     }
   }
@@ -44,7 +44,7 @@ class LoadingBloc extends Cubit<LoadingState>{
 abstract class LoadingState{}
 class LoadingInitialState extends LoadingState{}
 
-class GoToLoginPageState extends LoadingState{}
+class GoToWelcomePage extends LoadingState{}
 
 class GoToUserPageState extends LoadingState{}
 

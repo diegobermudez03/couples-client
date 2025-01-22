@@ -14,7 +14,7 @@ class LoadingScreen extends StatelessWidget {
       body: BlocListener<LoadingBloc, LoadingState>(
         listener: (context, state) {
           switch(state){
-            case GoToLoginPageState _: context.go(routeLoginPage);break;
+            case GoToWelcomePage _: context.go(routeWelcomePage);break;
             case GoToUserPageState _:context.go(routeLogUserPage); break;
             case GoToConnectCouplePageState _: context.go(routeConnectCouplePage);break;
             case GoToMainPageState _ : context.go(routeMainPage); break;

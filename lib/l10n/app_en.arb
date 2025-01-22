@@ -9,19 +9,9 @@
         "description": "A greeting"
     },
 
-    "loginWith" : "Login with",
-    "@loginWith" : {
-        "description": "A login description"
-    },
-
-    "youreNewQuestion" : "You're new?",
-    "@youreNewQuestion" : {
-        "description": "Question to user if is new"
-    },
-
-    "registerHere" : "Register here!",
-    "@registerHere" : {
-        "description": "Indication to register"
+    "login" : "Login",
+    "@login" : {
+        "description": "to login"
     },
 
     "introTitlePage1" : "Title for page 1",
@@ -60,5 +50,15 @@
     "connectWithoutAccount" : "Connect with partner without account",
     "@connectWithoutAccount": {
         "description": "to connect without account"
+    },
+
+    "or" : "Or",
+    "@or": {
+        "description": "this or that"
+    },
+
+    "register" : "Register",
+    "@register" :{
+        "description": "to register"
     }
 }

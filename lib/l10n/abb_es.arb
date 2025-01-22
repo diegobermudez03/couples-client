@@ -1,9 +1,8 @@
 {
     "language": "Español",
     "helloWorld" : "Hola mundo",
-    "loginWith" : "Inicia sesion con",
-    "youreNewQuestion" : "Eres nuev@?",
-    "registerHere" : "Registrate aqui!",
+    "login" : "Inicia sesion",
+    "register": "Registrare",
     "introTitlePage1" : "Titulo para pagina 1",
     "introTitlePage2" : "Titulo para pagina 2",
     "introTitlePage3" : "Titulo para pagina 3",
@@ -12,5 +11,6 @@
     "descIntroPage2" : "Descripcion larga para pagina 2, esta es una descripcion larga y exhaustiva",
     "descIntroPage3" : "Descripcion larga para pagina 3, esta es una descripcion larga y exhaustiva",
     "descIntroPage4" : "Descripcion larga para pagina 4, esta es una descripcion larga y exhaustiva",
-    "connectWithoutAccount" : "Conectate con tu pareja sin crear cuenta"
+    "connectWithoutAccount" : "Conectate con tu pareja sin crear cuenta",
+    "or" : "o"
 }
