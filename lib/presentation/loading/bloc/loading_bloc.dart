@@ -1,6 +1,7 @@
 
 import 'package:couples_client_app/respositories/auth_repo.dart';
 import 'package:couples_client_app/services/secure_storage/secure_storage_service.dart';
+import 'package:couples_client_app/shared/helpers/messages/status_messags.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoadingBloc extends Cubit<LoadingState>{
@@ -11,7 +12,7 @@ class LoadingBloc extends Cubit<LoadingState>{
 
 
   void checkInitialPage() async{
-    final rfToken = await _storage.readValue('refresh_token');
+    final rfToken = await _storage.readValue(refreshTokenKey);
     if(rfToken == null){
       emit(GoToWelcomePage());
       return;
@@ -22,13 +23,13 @@ class LoadingBloc extends Cubit<LoadingState>{
       return;
     }
     switch(status.item1){
-      case "there's no user associated":
+      case statusNoUserCreated:
         emit(GoToUserPageState());
         break;
-      case "user has an user associated":
+      case statusUserCreated:
         emit(GoToConnectCouplePageState());
         break;
-      case "user has a couple associated":
+      case statusCoupleCreated:
         emit(GoToMainPageState());
         break;
       default:

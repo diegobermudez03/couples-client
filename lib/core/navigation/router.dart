@@ -1,7 +1,9 @@
 import 'package:couples_client_app/presentation/auth/bloc/login_bloc.dart';
+import 'package:couples_client_app/presentation/auth/bloc/register_bloc.dart';
 import 'package:couples_client_app/presentation/auth/screens/connect_couple_screen.dart';
 import 'package:couples_client_app/presentation/auth/screens/create_user_screen.dart';
 import 'package:couples_client_app/presentation/auth/screens/login_screen.dart';
+import 'package:couples_client_app/presentation/auth/screens/register_screen.dart';
 import 'package:couples_client_app/presentation/auth/screens/welcome_screen.dart';
 import 'package:couples_client_app/presentation/loading/bloc/loading_bloc.dart';
 import 'package:couples_client_app/presentation/loading/screens/loading_screen.dart';
@@ -33,6 +35,14 @@ final router = GoRouter(routes: [
     builder: (_, __) => BlocProvider(
       create: (context) => GetIt.instance.get<LoginBloc>(),
       child: LoginScreen(),
+    ),
+    pageBuilder: GoTransitions.openUpwards,
+  ),
+   GoRoute(
+    path: routeRegisterPage,
+    builder: (_, __) => BlocProvider(
+      create: (context) => GetIt.instance.get<RegisterBloc>(),
+      child: RegisterScreen(),
     ),
     pageBuilder: GoTransitions.openUpwards,
   ),

@@ -1,5 +1,6 @@
 import 'package:couples_client_app/core/navigation/router.dart';
 import 'package:couples_client_app/presentation/auth/bloc/login_bloc.dart';
+import 'package:couples_client_app/presentation/auth/bloc/register_bloc.dart';
 import 'package:couples_client_app/presentation/auth/widgets/auth_field.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
@@ -8,19 +9,21 @@ import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ionicons/ionicons.dart';
 
-class LoginScreen extends StatefulWidget {
+class RegisterScreen extends StatefulWidget {
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
   late final TextEditingController emailController;
   late final TextEditingController passwordController;
+  late final TextEditingController confirmPasswordController;
 
   @override
   void initState() {
     emailController = TextEditingController();
     passwordController = TextEditingController();
+    confirmPasswordController = TextEditingController();
     super.initState();
   }
 
@@ -28,6 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
   void dispose() {
     emailController.dispose();
     passwordController.dispose();
+    confirmPasswordController.dispose();
     super.dispose();
   }
 
@@ -36,7 +40,7 @@ class _LoginScreenState extends State<LoginScreen> {
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
     final i10n = AppLocalizations.of(context)!;
-    final bloc = BlocProvider.of<LoginBloc>(context);
+    final bloc = BlocProvider.of<RegisterBloc>(context);
     final bool isKeyboardOpen = MediaQuery.of(context).viewInsets.bottom > 0;
     return Container(
       decoration: BoxDecoration(
@@ -51,7 +55,7 @@ class _LoginScreenState extends State<LoginScreen> {
         backgroundColor: Colors.transparent,
         body: Stack(
           children: [
-            Align(
+             Align(
               alignment: Alignment.bottomCenter,
               child: Container(
                 height: MediaQuery.sizeOf(context).height/20,
@@ -59,22 +63,19 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
             SafeArea(
-              child: BlocListener<LoginBloc, LoginState>(
+              child: BlocListener<RegisterBloc, RegisterState>(
                 listener: (context, state) {
-                  if(state is LoginSuccessState){
-                    switch(state.message){
-                      case LoginNavigateMessage.goToUserCreation: context.go(routeLogUserPage);break;
-                      case LoginNavigateMessage.goToCoupleConnection: context.go(routeConnectCouplePage);break;
-                      case LoginNavigateMessage.goToMainPage: context.go(routeMainPage);break;
-                    }
+                  if(state is RegisterSuccessState){
+                    context.go(routeLogUserPage);
                   }
-                  if(state is LoginFailedState){
+                  if(state is RegsiterFailedState){
                     final String message = switch(state.message){
-                      LoginErrorMessage.emptyFields =>  i10n.youMustFillAllFields,
-                      LoginErrorMessage.nonExistingEmail =>  i10n.youMustWriteAValidEmail,
-                      LoginErrorMessage.incorrectPassword => i10n.youMustWriteAValidEmail,
-                      LoginErrorMessage.noUserFoundEmail => i10n.youMustWriteAValidEmail,
-                      LoginErrorMessage.generalError => i10n.youMustWriteAValidEmail,
+                      RegisterErrorMessage.emptyFields =>  i10n.youMustFillAllFields,
+                      RegisterErrorMessage.invalidEmail =>  i10n.youMustWriteAValidEmail,
+                      RegisterErrorMessage.notEqualsPassword => i10n.notEqualsPasswords,
+                      RegisterErrorMessage.insecurePassword => i10n.insecurePassword,
+                      RegisterErrorMessage.emailAlreadyUsed => i10n.emailAlreadyInUse,
+                      RegisterErrorMessage.genericError => i10n.youMustWriteAValidEmail,
                     };
                     showDialog(
                       context: context, 
@@ -117,31 +118,31 @@ class _LoginScreenState extends State<LoginScreen> {
                     );
                   }
                 },
-                child: BlocBuilder<LoginBloc, LoginState>(
+                child: BlocBuilder<RegisterBloc, RegisterState>(
                   builder: (context, state) {
-                    final bool isLoading = state is LoginCheckingState;
+                    final bool isLoading = state is RegisterCheckingState;
                     return Column(
                       children: [
                         Expanded(
-                          flex: isKeyboardOpen ? 0 : 3,
+                          flex: isKeyboardOpen ? 0 : 1,
                           child: AnimatedSwitcher(
                             duration: const Duration(milliseconds: 1000),
                             child: isKeyboardOpen ? const SizedBox() : Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 0),
                             child: Column(
                               children: [
                                 const Spacer(flex: 1,),
                                 Align(
                                   alignment: Alignment.topLeft,
                                   child: Text(
-                                    i10n.welcomeBack.replaceAll(' ', '\n'),
+                                    i10n.hello,
                                     style: textTheme.displayMedium!.copyWith(color: colorScheme.onPrimary),
                                   ),
                                 ),
                                 Align(
                                   alignment: Alignment.topLeft,
                                   child: Text(
-                                    i10n.wereHappyToSeeYouAgain,
+                                    i10n.registerToGetStarted,
                                     style: textTheme.bodyLarge!.copyWith(color: colorScheme.onPrimary),
                                   ),
                                 ),
@@ -151,12 +152,12 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),),
                         ),
                         Expanded(
-                          flex: 9,
+                          flex: 6,
                           child: Container(
                             decoration: BoxDecoration(
                                 color: colorScheme.onPrimary,
                                 borderRadius:
-                                    const BorderRadius.only(topLeft: Radius.circular(45), topRight: Radius.circular(45)),),
+                                    const BorderRadius.only(topLeft: Radius.circular(45), topRight: Radius.circular(45))),
                             child: Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 45.0),
                               child: Column(
@@ -172,6 +173,14 @@ class _LoginScreenState extends State<LoginScreen> {
                                     controller: emailController,
                                   ),
                                   const Spacer(),
+                                  Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      i10n.passwordMustHaveRules,
+                                      style: textTheme.labelMedium,
+                                    )
+                                  ),
+                                  const Spacer(),
                                   AuthField(
                                       icon: const Icon(Ionicons.lock_closed),
                                       labelText: i10n.passwordLabel,
@@ -179,15 +188,21 @@ class _LoginScreenState extends State<LoginScreen> {
                                       password: true,
                                       editable: !isLoading,
                                       controller: passwordController),
+                                  const Spacer(),
+                                  AuthField(
+                                      icon: const Icon(Ionicons.lock_closed),
+                                      labelText: i10n.confirmPasswordLabel,
+                                      hintText: i10n.confirmPasswordHint,
+                                      password: true,
+                                      editable: !isLoading,
+                                      controller: confirmPasswordController),
                                   const Spacer(
                                     flex: 7,
                                   ),
                                   SizedBox(
                                     width: double.infinity,
                                     child: TextButton(
-                                        onPressed: !isLoading
-                                            ? () => _loginHandler(context, bloc)
-                                            : null,
+                                        onPressed: ()=>_registerHandler(context, bloc),
                                         style: ButtonStyle(
                                             shape: WidgetStatePropertyAll(
                                                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(20))),
@@ -196,7 +211,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                           padding: const EdgeInsets.all(8.0),
                                           child: !isLoading
                                               ? Text(
-                                                  i10n.login,
+                                                  i10n.register,
                                                   style: textTheme.titleLarge!.copyWith(color: colorScheme.onSecondary),
                                                 )
                                               : CircularProgressIndicator(
@@ -208,11 +223,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Text(i10n.dontHaveAnAccountYetQuestion),
-                                      TextButton(
-                                        onPressed: ()=>context.pushReplacement(routeRegisterPage), 
-                                        child: Text(i10n.registerHere)
-                                      )
+                                      Text(i10n.alreadyHaveAnAccountQuestion),
+                                      TextButton(onPressed: () => context.pushReplacement(routeLoginPage), child: Text(i10n.loginHere))
                                     ],
                                   ),
                                   const Spacer(
@@ -235,16 +247,16 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  void _loginHandler(BuildContext context, LoginBloc bloc) async{
+  void _registerHandler(BuildContext context, RegisterBloc bloc) async{
     final deviceInfoPlugin = DeviceInfoPlugin();
     if (Theme.of(context).platform == TargetPlatform.android) {
       AndroidDeviceInfo androidInfo = await deviceInfoPlugin.androidInfo;
-      bloc.login(emailController.text, passwordController.text, '${androidInfo.brand} ${ androidInfo.model} ${androidInfo.device}', 'ANDROID');
+      bloc.register(emailController.text, passwordController.text, confirmPasswordController.text,'${androidInfo.brand} ${ androidInfo.model} ${androidInfo.device}', 'ANDROID');
     } else if (Theme.of(context).platform == TargetPlatform.iOS) {
       IosDeviceInfo iosInfo = await deviceInfoPlugin.iosInfo;
-      bloc.login(emailController.text, passwordController.text, '${iosInfo.model} ${iosInfo.name}', 'IOS');
+      bloc.register(emailController.text, passwordController.text, confirmPasswordController.text, '${iosInfo.model} ${iosInfo.name}', 'IOS');
     } else {
-      bloc.login(emailController.text, passwordController.text, 'UNKNOWN', 'WEB');
+      bloc.register(emailController.text, passwordController.text,confirmPasswordController.text, 'UNKNOWN', 'WEB');
     }
   }
 }

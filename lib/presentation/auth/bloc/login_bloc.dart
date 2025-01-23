@@ -1,5 +1,8 @@
 import 'package:couples_client_app/respositories/auth_repo.dart';
 import 'package:couples_client_app/services/secure_storage/secure_storage_service.dart';
+import 'package:couples_client_app/shared/global_variables.dart';
+import 'package:couples_client_app/shared/helpers/messages/error_messages.dart';
+import 'package:couples_client_app/shared/helpers/messages/status_messags.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginBloc extends Cubit<LoginState>{
@@ -9,21 +12,41 @@ class LoginBloc extends Cubit<LoginState>{
 
   LoginBloc(this._repo, this._storage): super(LoginInitialState());
 
-  void login(String email, String password) async{
+  void login(String email, String password, String device, String os) async{
     emit(LoginCheckingState());
+    await Future.delayed(const Duration(seconds: 2));
     if(email.isEmpty || password.isEmpty){
-      emit(LoginFailedState(LoginMessage.emptyFields));
+      emit(LoginFailedState(LoginErrorMessage.emptyFields));
       return;
     }
     if(!email.contains('@')){
-      emit(LoginFailedState(LoginMessage.nonExistingEmail));
+      emit(LoginFailedState(LoginErrorMessage.nonExistingEmail));
       return;
     }
-    await Future.delayed(Duration(seconds: 2));
-    emit(LoginSuccessState());
+    final token = await _repo.loginUser(email, password, device, os);
+    if(token.item2 != null){
+      switch(token.item2!.error){
+        case errorNoUserFoundEmail: emit(LoginFailedState(LoginErrorMessage.noUserFoundEmail)); break;
+        case errorIncorrectPassword: emit(LoginFailedState(LoginErrorMessage.incorrectPassword)); break;
+        default : emit(LoginFailedState(LoginErrorMessage.generalError)); break;
+      }
+      return;
+    }
+    //store efresh token
+    _storage.writeValue(refreshTokenKey, token.item1);
+    GlobalVariables.refreshToken = refreshTokenKey;
+    final status = await _repo.getUserStatus(token.item1);
+    if(status.item2 !=null){
+      emit(LoginFailedState(LoginErrorMessage.generalError));
+      return;
+    }
+    //navigation depending on user state
+    switch(status.item1){
+      case statusNoUserCreated: emit(LoginSuccessState(LoginNavigateMessage.goToUserCreation)); break;
+      case statusUserCreated: emit(LoginSuccessState(LoginNavigateMessage.goToCoupleConnection)); break;
+      case statusCoupleCreated: emit(LoginSuccessState(LoginNavigateMessage.goToMainPage)); break;
+    }
   }
-
-
 }
 
 
@@ -34,13 +57,20 @@ class LoginInitialState extends LoginState{}
 class LoginCheckingState extends LoginState{}
 
 class LoginFailedState extends LoginState{
-  final LoginMessage message;
+  final LoginErrorMessage message;
   LoginFailedState(this.message);
 }
 
-class LoginSuccessState extends LoginState{}
+class LoginSuccessState extends LoginState{
+  final LoginNavigateMessage message;
+  LoginSuccessState(this.message);
+}
 
 
-enum LoginMessage{
-  emptyFields, nonExistingEmail, incorrectPassword, networkError
+enum LoginErrorMessage{
+  emptyFields, nonExistingEmail, incorrectPassword, generalError, noUserFoundEmail
+}
+
+enum LoginNavigateMessage{
+  goToUserCreation, goToCoupleConnection, goToMainPage
 }

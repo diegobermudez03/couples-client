@@ -19,38 +19,31 @@ class IntroPage extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     final aspect = MediaQuery.sizeOf(context).width / (MediaQuery.sizeOf(context).height/2.2);
-    print(aspect);
-    return SizedBox(
-      //width: MediaQuery.sizeOf(context).width-500,
-      //height: double.infinity,
-      child: Column(
-        children: [
-          const Spacer(flex: 2,),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Text(
-              tittle,
-              style: Theme.of(context).textTheme.headlineSmall,
-            ),
+    return Column(
+      children: [
+        const Spacer(flex: 2,),
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: Text(
+            tittle,
+            style: Theme.of(context).textTheme.headlineSmall,
           ),
-          AspectRatio(
-            aspectRatio: aspect,
-            child: Lottie.asset(
-              lottieURL,
-              fit: BoxFit.contain,
-            ),
+        ),
+        AspectRatio(
+          aspectRatio: aspect,
+          child: Lottie.asset(
+            lottieURL,
+            fit: BoxFit.contain,
           ),
-          const Spacer(flex: 3,),
-          Text(
-            text,
-            textAlign: righOrientation ? TextAlign.right : TextAlign.left,
-            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-              color: Theme.of(context).colorScheme.onPrimary
-            ),
-          ),
-          const Spacer(flex: 2,),
-        ],
-      ),
+        ),
+        const Spacer(flex: 1,),
+        Text(
+          text,
+          textAlign: righOrientation ? TextAlign.right : TextAlign.left,
+          style: Theme.of(context).textTheme.bodyMedium
+        ),
+        const Spacer(flex: 8,),
+      ],
     );
   }
 }

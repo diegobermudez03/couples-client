@@ -55,6 +55,8 @@ dependencies:
   smooth_page_indicator: ^1.2.0+3
   # for icons
   font_awesome_flutter: ^10.8.0
+  # to get device info 
+  device_info_plus: ^11.2.1
   # for i10
   flutter_localizations:
     sdk: flutter

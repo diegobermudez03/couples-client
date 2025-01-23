@@ -115,5 +115,76 @@
     "ok" : "Ok",
     "@ok" : {
         "description": "Ok, fine"
+    },
+
+    "incorrectPassword" : "Incorrect password",
+    "@incorrectPassword" : {
+        "description": "the password was incorrect"
+    },
+
+    "noUserFoundEmail" : "There's no user with that email",
+    "@noUserFoundEmail" : {
+        "description": "no user found email error"
+    },
+
+    "generalErrorLogin" : "There was an error, please try again",
+    "@generalErrorLogin":{
+        "description": "general error for login"
+    },
+
+    "hello" : "Hello!",
+    "@hello" : {
+        "description": "Hello greeting"
+    },
+
+    "registerToGetStarted" : "Register to get started",
+    "@registerToGetStarted" : {
+        "description": "register desc"
+    },
+
+    "alreadyHaveAnAccountQuestion" : "Already have an account?",
+    "@alreadyHaveAnAccountQuestion" : {
+        "description": "already have an account"
+    },
+
+    "loginHere" : "Login here!",
+    "@loginHere" : {
+        "description": "Login here"
+    },
+
+    "dontHaveAnAccountYetQuestion" : "Don't have an account yet?",
+    "@dontHaveAnAccountYetQuestion" : {
+        "description": "dont have an account yer"
+    },
+    "registerHere" : "Register here!",
+    "@registerHere" : {
+        "description": "rgister hre"
+    },
+
+    "confirmPasswordLabel" : "Confirm password",
+    "@confirmPasswordLabel" : {
+        "description": "please confirm your password"
+    },
+    "confirmPasswordHint" : "retype your password",
+    "@confirmPasswordHint" : {
+        "description": "please retype your password"
+    },
+
+    "passwordMustHaveRules" : "Password must have at least 6 characters and 1 digit",
+    "@passwordMustHaveRules":{
+        "description": "password helper text"
+    },
+    "insecurePassword" : "The password is to insecure",
+    "@insecurePassword" : {
+        "description": "insecure password"
+    },
+    "notEqualsPasswords" : "The passwords are not equal",
+    "@notEqualsPasswords" : {
+        "description": "non euqals passwords"
+    },
+    "emailAlreadyInUse" : "The email is already in use",
+    "@emailAlreadyInUse" : {
+        "description": "the email is already in use"
     }
+    
 }

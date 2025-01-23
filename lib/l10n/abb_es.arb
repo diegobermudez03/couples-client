@@ -23,5 +23,16 @@
     "youMustFillAllFields" : "Debe llenar todos los campos",
     "ok" : "Ok",
     "youMustWriteAValidEmail" : "Debes ingresar un correo valido",
-    "anErrorOcurred" : "Ha sucedido un error"
+    "anErrorOcurred" : "Ha sucedido un error",
+    "incorrectPassword" : "Contraseña incorrecta",
+    "noUserFoundEmail" : "No hay ningun usuario con ese correo",
+    "generalErrorLogin" : "Hubo un error, por favor intente de nuevo",
+    "hello" : "Hola!",
+    "registerToGetStarted" : "Registrate para comenzar",
+    "confirmPasswordLabel" : "Confirma tu contraseña",
+    "confirmPasswordHint" : "ingresa tu contraseña",
+    "passwordMustHaveRules" : "La contraseña debe tener al menos 6 caracteres y 1 digito",
+    "insecurePassword" : "La contraseña es muy insegura",
+    "notEqualsPasswords" : "Las contraseñas no coinciden",
+    "emailAlreadyInUse" : "El correo ya esta siendo usado"
 }

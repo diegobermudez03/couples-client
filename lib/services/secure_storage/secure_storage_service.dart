@@ -1,5 +1,7 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
+const refreshTokenKey = "refresh_token";
+
 abstract class SecureStorageService{
   Future<String?> readValue(String key);
   Future<void> writeValue(String key, String value);
