@@ -160,7 +160,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       padding: const EdgeInsets.symmetric(horizontal: 30),
                       width: double.infinity,
                       child: OutlinedButton(
-                        onPressed: ()=>context.go(routeLoginPage), 
+                        onPressed: ()=>context.push(routeLoginPage), 
                         style: ButtonStyle(
                           backgroundColor: WidgetStatePropertyAll(colorScheme.primary),
                           elevation: const WidgetStatePropertyAll(0),

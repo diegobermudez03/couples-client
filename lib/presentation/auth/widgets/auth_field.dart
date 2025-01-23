@@ -8,12 +8,16 @@ class AuthField extends StatefulWidget{
   final String hintText;
   final String labelText;
   final bool password;
+  final bool editable;
+  final TextEditingController controller;
 
   AuthField({
     super.key,
     required this.icon,
     required this.hintText,
     required this.labelText,
+    required this.controller,
+    required this.editable,
     this.password = false,
     
   });
@@ -37,6 +41,8 @@ class _AuthFieldState extends State<AuthField> {
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
     return TextField(
+      readOnly: !widget.editable,
+      controller: widget.controller,
       style: textTheme.bodyLarge!.copyWith(
         color: colorScheme.onTertiaryContainer
       ),
@@ -76,7 +82,7 @@ class _AuthFieldState extends State<AuthField> {
           borderRadius: BorderRadius.circular(12),
         ),
         // Content padding
-        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 25),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
 
         // Filled background
         filled: true,
@@ -88,6 +94,7 @@ class _AuthFieldState extends State<AuthField> {
       textInputAction: TextInputAction.done,
       maxLength: 50, 
       obscureText: hideText,
+
       
     );
   }

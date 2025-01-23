@@ -1,4 +1,5 @@
 
+import 'package:couples_client_app/presentation/auth/bloc/login_bloc.dart';
 import 'package:couples_client_app/presentation/loading/bloc/loading_bloc.dart';
 import 'package:couples_client_app/respositories/auth_repo.dart';
 import 'package:couples_client_app/respositories/impl/auth_repo_impl.dart';
@@ -21,4 +22,5 @@ Future<void> initDependencies() async{
 
   //providers
   depIn.registerFactory<LoadingBloc>(()=>LoadingBloc(authRepo, secureStorage)..checkInitialPage());
+  depIn.registerFactory<LoginBloc>(()=>LoginBloc(authRepo, secureStorage));
 }

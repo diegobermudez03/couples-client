@@ -18,5 +18,10 @@
     "emailLabel" : "Correo",
     "emailHintText" : "Escribe tu correo",
     "passwordLabel" : "Contraseña",
-    "passwordHintText" : "Ingresa tu contraseña"
+    "passwordHintText" : "Ingresa tu contraseña",
+    "errorLogin" : "No se pudo iniciar sesion",
+    "youMustFillAllFields" : "Debe llenar todos los campos",
+    "ok" : "Ok",
+    "youMustWriteAValidEmail" : "Debes ingresar un correo valido",
+    "anErrorOcurred" : "Ha sucedido un error"
 }

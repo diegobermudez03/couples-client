@@ -1,3 +1,4 @@
+import 'package:couples_client_app/presentation/auth/bloc/login_bloc.dart';
 import 'package:couples_client_app/presentation/auth/screens/connect_couple_screen.dart';
 import 'package:couples_client_app/presentation/auth/screens/create_user_screen.dart';
 import 'package:couples_client_app/presentation/auth/screens/login_screen.dart';
@@ -27,30 +28,32 @@ final router = GoRouter(routes: [
     ),
     pageBuilder: GoTransitions.fadeUpwards,
   ),
-   GoRoute(
+  GoRoute(
     path: routeLoginPage,
-    builder: (_, __) =>  LoginScreen(),
+    builder: (_, __) => BlocProvider(
+      create: (context) => GetIt.instance.get<LoginBloc>(),
+      child: LoginScreen(),
+    ),
     pageBuilder: GoTransitions.openUpwards,
   ),
   GoRoute(
     path: routeWelcomePage,
-    builder: (_, __) =>  WelcomeScreen(),
+    builder: (_, __) => WelcomeScreen(),
     pageBuilder: GoTransitions.fadeUpwards,
   ),
   GoRoute(
     path: routeLogUserPage,
-    builder: (_, __) =>  CreateUserScreen(),
+    builder: (_, __) => CreateUserScreen(),
     pageBuilder: GoTransitions.openUpwards,
   ),
   GoRoute(
     path: routeConnectCouplePage,
-    builder: (_, __) =>  ConnectCoupleScreen(),
+    builder: (_, __) => ConnectCoupleScreen(),
     pageBuilder: GoTransitions.fadeUpwards,
   ),
   GoRoute(
     path: routeMainPage,
-    builder: (_, __) =>  MainScreen(),
+    builder: (_, __) => MainScreen(),
     pageBuilder: GoTransitions.fadeUpwards,
   ),
-
 ]);

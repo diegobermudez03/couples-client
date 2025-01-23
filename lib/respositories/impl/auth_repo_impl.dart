@@ -7,4 +7,9 @@ class AuthRepoImpl implements AuthRepo{
     return Tuple2("user has a couple associated", null);
   }
   
+  @override
+  Future<Tuple2<String, Error?>> loginUser(String email, String password) async{
+    return Tuple2("refresh token here", null);
+  }
+  
 }

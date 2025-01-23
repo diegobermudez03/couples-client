@@ -90,5 +90,30 @@
     "passwordHintText" : "Type your password",
     "@passwordHintText" : {
         "description": "the hint text for password"
+    },
+
+    "errorLogin" : "Unable to login",
+    "@errorLogin" : {
+        "description": "title to show when unable to login"
+    },
+
+    "youMustFillAllFields" : "Make sure to fill all fields",
+    "@youMustFillAllFields" : {
+        "description": "description of error you should fill all fields"
+    },
+
+    "youMustWriteAValidEmail" : "The email is not a valid email",
+    "@youMustWriteAValidEmail" : {
+        "description": "invalid email"
+    },
+
+    "anErrorOcurred" : "An error ocurred",
+    "@anErrorOcurred" : {
+        "description": "Generic error desc"
+    },
+
+    "ok" : "Ok",
+    "@ok" : {
+        "description": "Ok, fine"
     }
 }
