@@ -12,5 +12,11 @@
     "descIntroPage3" : "Descripcion larga para pagina 3, esta es una descripcion larga y exhaustiva",
     "descIntroPage4" : "Descripcion larga para pagina 4, esta es una descripcion larga y exhaustiva",
     "connectWithoutAccount" : "Conectate con tu pareja sin crear cuenta",
-    "or" : "o"
+    "or" : "o",
+    "wereHappyToSeeYouAgain" : "Estamos felices de verte de nuevo!",
+    "welcomeBack" : "Bienvenido nuevamente!",
+    "emailLabel" : "Correo",
+    "emailHintText" : "Escribe tu correo",
+    "passwordLabel" : "Contraseña",
+    "passwordHintText" : "Ingresa tu contraseña"
 }

@@ -55,217 +55,225 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
     final i10n = AppLocalizations.of(context)!;
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        title: Center(
-          child: Image.asset(
-            getAsset('images/general/app_title.png'),
-            fit: BoxFit.fitHeight,
-            height: 50,
-          ),
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [colorScheme.primaryFixedDim, colorScheme.tertiaryFixedDim],
+          begin: Alignment.topLeft,
+          end: Alignment.topRight,
         ),
       ),
-      backgroundColor: colorScheme.primaryFixedDim,
-      body: Column(
-        children: [
-          Expanded(
-            flex: 8,
-            child: Stack(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(bottom:  25, right: 25, left: 25),
-                  child: PageView(
-                    controller: pageController,
-                    children: [
-                      IntroPage(
-                        lottieURL: getAsset('animations/intro/page1.json'),
-                        tittle:i10n.introTitlePage1,
-                        text: i10n.descIntroPage1,
-                        righOrientation: false,
-                      ),
-                      IntroPage(
-                        lottieURL: getAsset("animations/intro/page2.json"),
-                        tittle: i10n.introTitlePage2,
-                        text: i10n.descIntroPage2,
-                        righOrientation: true,
-                      ),
-                      IntroPage(
-                        lottieURL: getAsset("animations/intro/page3.json"),
-                        tittle: i10n.introTitlePage3,
-                        text: i10n.descIntroPage3,
-                        righOrientation: false,
-                      ),
-                      IntroPage(
-                        lottieURL: getAsset("animations/intro/page4.json"),
-                        tittle: i10n.introTitlePage4,
-                        text: i10n.descIntroPage4,
-                        righOrientation: true,
-                      ),
-                    ],
-                    onPageChanged: (value) => setState(() {
-                      currentPage = value;
-                    }),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: Align(
-                    alignment: Alignment.bottomCenter,
-                    child: AnimatedSmoothIndicator(    
-                      activeIndex: currentPage,    
-                      count: 4,    
-                      effect: WormEffect(
-                        dotWidth: 12,
-                        dotHeight: 12,
-                        spacing: 15,
-                        dotColor: colorScheme.surfaceContainerLowest,
-                        activeDotColor: colorScheme.primary,
-                      ), 
-                      onDotClicked: (index) {
-                        setState(() {
-                          currentPage = index;
-                        });
-                        pageController.animateToPage(index, duration: const Duration(milliseconds: 500), curve: Curves.decelerate);
-                      },
-                    ),
-                  ),
-                ) 
-              ],
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          title: Center(
+            child: Image.asset(
+              getAsset('images/general/app_title.png'),
+              fit: BoxFit.fitHeight,
+              height: 50,
             ),
           ),
-          const SizedBox(height: 10,),
-          Expanded(
-            flex: 5,
-            child: Container(
-              decoration: BoxDecoration(
-                color: colorScheme.surfaceContainerLowest,
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(50.0),
-                  topRight: Radius.circular(50.0),
-                ),
-              ),
-              child: Column(
+        ),
+        backgroundColor: Colors.transparent,
+        body: Column(
+          children: [
+            Expanded(
+              flex: 32,
+              child: Stack(
                 children: [
-                  const Spacer(flex: 3,),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 30),
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: ()=>context.push(routeLoginPage), 
-                      style: ButtonStyle(
-                        backgroundColor: WidgetStatePropertyAll(colorScheme.primary),
-                        elevation: const WidgetStatePropertyAll(0),
-                        shape: WidgetStatePropertyAll(
-                          RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))
-                        )
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical:  8.0),
-                          child: Text(
-                            i10n.login,
-                            style: textTheme.titleLarge!.copyWith(
-                              color: colorScheme.onPrimary
-                            ),
-                          ),
-                        ),
-                      )
-                    ),
-                  ),
-                  const Spacer(flex: 1,),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 30),
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: (){}, 
-                      style: ButtonStyle(
-                        backgroundColor: WidgetStatePropertyAll(colorScheme.surfaceContainerHighest),
-                        elevation: const WidgetStatePropertyAll(0),
-                        shape: WidgetStatePropertyAll(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            side: const BorderSide(width: 1)
-                          )
-                        )
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical:  8.0),
-                          child: Text(
-                            i10n.register,
-                            style: textTheme.titleLarge!.copyWith(
-                              color: colorScheme.onSurface
-                            ),
-                          ),
-                        ),
-                      )
-                    ),
-                  ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                    child: Row(
+                    padding: const EdgeInsets.only(bottom:  25, right: 25, left: 25),
+                    child: PageView(
+                      controller: pageController,
                       children: [
-                        const Expanded(
-                          child: Divider(
-                            thickness: 3,
-                          ),
+                        IntroPage(
+                          lottieURL: getAsset('animations/intro/page1.json'),
+                          tittle:i10n.introTitlePage1,
+                          text: i10n.descIntroPage1,
+                          righOrientation: false,
                         ),
-                        Text('   ${i10n.or}   ', style: textTheme.bodyLarge,),
-                        const Expanded(
-                          child: Divider(
-                            thickness: 3,
-                          ),
+                        IntroPage(
+                          lottieURL: getAsset("animations/intro/page2.json"),
+                          tittle: i10n.introTitlePage2,
+                          text: i10n.descIntroPage2,
+                          righOrientation: true,
+                        ),
+                        IntroPage(
+                          lottieURL: getAsset("animations/intro/page3.json"),
+                          tittle: i10n.introTitlePage3,
+                          text: i10n.descIntroPage3,
+                          righOrientation: false,
+                        ),
+                        IntroPage(
+                          lottieURL: getAsset("animations/intro/page4.json"),
+                          tittle: i10n.introTitlePage4,
+                          text: i10n.descIntroPage4,
+                          righOrientation: true,
                         ),
                       ],
+                      onPageChanged: (value) => setState(() {
+                        currentPage = value;
+                      }),
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 30),
-                    child: FittedBox(
-                      fit: BoxFit.scaleDown,
-                      child: ElevatedButton(
-                        onPressed: ()=> context.push(routeLogUserPage), 
+                    padding: const EdgeInsets.all(5.0),
+                    child: Align(
+                      alignment: Alignment.bottomCenter,
+                      child: AnimatedSmoothIndicator(    
+                        activeIndex: currentPage,    
+                        count: 4,    
+                        effect: WormEffect(
+                          dotWidth: 12,
+                          dotHeight: 12,
+                          spacing: 15,
+                          dotColor: colorScheme.surfaceContainerLowest,
+                          activeDotColor: colorScheme.primary,
+                        ), 
+                        onDotClicked: (index) {
+                          setState(() {
+                            currentPage = index;
+                          });
+                          pageController.animateToPage(index, duration: const Duration(milliseconds: 500), curve: Curves.decelerate);
+                        },
+                      ),
+                    ),
+                  ) 
+                ],
+              ),
+            ),
+            const Spacer(flex: 1,),
+            Expanded(
+              flex: 20,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: colorScheme.surfaceContainerLowest,
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(50.0),
+                    topRight: Radius.circular(50.0),
+                  ),
+                ),
+                child: Column(
+                  children: [
+                    const Spacer(flex: 3,),
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 30),
+                      width: double.infinity,
+                      child: OutlinedButton(
+                        onPressed: ()=>context.go(routeLoginPage), 
                         style: ButtonStyle(
-                          backgroundColor: WidgetStatePropertyAll(colorScheme.tertiaryContainer),
-                          elevation: const WidgetStatePropertyAll(3),
+                          backgroundColor: WidgetStatePropertyAll(colorScheme.primary),
+                          elevation: const WidgetStatePropertyAll(0),
+                          shape: WidgetStatePropertyAll(
+                            RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))
+                          )
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical:  8.0),
+                            child: Text(
+                              i10n.login,
+                              style: textTheme.titleLarge!.copyWith(
+                                color: colorScheme.onPrimary
+                              ),
+                            ),
+                          ),
+                        )
+                      ),
+                    ),
+                    const Spacer(flex: 1,),
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 30),
+                      width: double.infinity,
+                      child: OutlinedButton(
+                        onPressed: (){}, 
+                        style: ButtonStyle(
+                          backgroundColor: WidgetStatePropertyAll(colorScheme.surfaceContainerHighest),
+                          elevation: const WidgetStatePropertyAll(0),
                           shape: WidgetStatePropertyAll(
                             RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                              side: const BorderSide(width: 1)
+                              borderRadius: BorderRadius.circular(10),
                             )
                           )
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Row(
-                            children: [
-                              const FaIcon(
-                                FontAwesomeIcons.heart,
-                                size: 40,
+                          padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical:  8.0),
+                            child: Text(
+                              i10n.register,
+                              style: textTheme.titleLarge!.copyWith(
+                                color: colorScheme.onSurface
                               ),
-                              const SizedBox(width: 10,),
-                              Text(
-                                i10n.connectWithoutAccount,
-                                style: textTheme.labelLarge!.copyWith(
-                                  color: colorScheme.onTertiaryContainer,
-                                  fontSize: 20
-                                ),
-                              )
-                            ],
+                            ),
                           ),
                         )
                       ),
                     ),
-                  ),
-                  const Spacer(flex: 3,),
-                ],
-              ),
-            )
-          ),
-        ],
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                      child: Row(
+                        children: [
+                          const Expanded(
+                            child: Divider(
+                              thickness: 3,
+                            ),
+                          ),
+                          Text('   ${i10n.or}   ', style: textTheme.bodyLarge,),
+                          const Expanded(
+                            child: Divider(
+                              thickness: 3,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 30),
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: ElevatedButton(
+                          onPressed: ()=> context.push(routeLogUserPage), 
+                          style: ButtonStyle(
+                            backgroundColor: WidgetStatePropertyAll(colorScheme.tertiaryContainer),
+                            elevation: const WidgetStatePropertyAll(3),
+                            shape: WidgetStatePropertyAll(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                                side: const BorderSide(width: 1)
+                              )
+                            )
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Row(
+                              children: [
+                                const FaIcon(
+                                  FontAwesomeIcons.heart,
+                                  size: 40,
+                                ),
+                                const SizedBox(width: 10,),
+                                Text(
+                                  i10n.connectWithoutAccount,
+                                  style: textTheme.labelLarge!.copyWith(
+                                    color: colorScheme.onTertiaryContainer,
+                                    fontSize: 20
+                                  ),
+                                )
+                              ],
+                            ),
+                          )
+                        ),
+                      ),
+                    ),
+                    const Spacer(flex: 3,),
+                  ],
+                ),
+              )
+            ),
+          ],
+        ),
       ),
     );
   }

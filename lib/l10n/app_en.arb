@@ -60,5 +60,35 @@
     "register" : "Register",
     "@register" :{
         "description": "to register"
+    },
+
+    "welcomeBack" : "Welcome back",
+    "@welcomeBack" : {
+        "description": "a greeting in the login page"
+    },
+
+    "wereHappyToSeeYouAgain" : "We're glad to see you again!",
+    "@wereHappyToSeeYouAgain" :{
+        "description": "the description to welcome back"
+    },
+
+    "emailLabel" : "Email",
+    "@emailLabel" : {
+        "description": "the label for the email"
+    },
+
+    "emailHintText" : "Type your email",
+    "@emailHintText" : {
+        "description": "the hint text for email"
+    },
+
+    "passwordLabel" : "Password",
+    "@passwordLabel" : {
+        "description": "the label for the password"
+    },
+
+    "passwordHintText" : "Type your password",
+    "@passwordHintText" : {
+        "description": "the hint text for password"
     }
 }
