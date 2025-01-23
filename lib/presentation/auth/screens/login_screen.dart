@@ -69,12 +69,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     }
                   }
                   if(state is LoginFailedState){
+                    print(state.message);
                     final String message = switch(state.message){
                       LoginErrorMessage.emptyFields =>  i10n.youMustFillAllFields,
-                      LoginErrorMessage.nonExistingEmail =>  i10n.youMustWriteAValidEmail,
-                      LoginErrorMessage.incorrectPassword => i10n.youMustWriteAValidEmail,
-                      LoginErrorMessage.noUserFoundEmail => i10n.youMustWriteAValidEmail,
-                      LoginErrorMessage.generalError => i10n.youMustWriteAValidEmail,
+                      LoginErrorMessage.invalidEmail =>  i10n.youMustWriteAValidEmail,
+                      LoginErrorMessage.incorrectPassword => i10n.incorrectPassword,
+                      LoginErrorMessage.noUserFoundEmail => i10n.noUserFoundEmail,
+                      LoginErrorMessage.generalError => i10n.generalErrorLogin,
                     };
                     showDialog(
                       context: context, 

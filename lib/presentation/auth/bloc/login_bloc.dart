@@ -14,17 +14,17 @@ class LoginBloc extends Cubit<LoginState>{
 
   void login(String email, String password, String device, String os) async{
     emit(LoginCheckingState());
-    await Future.delayed(const Duration(seconds: 2));
     if(email.isEmpty || password.isEmpty){
       emit(LoginFailedState(LoginErrorMessage.emptyFields));
       return;
     }
     if(!email.contains('@')){
-      emit(LoginFailedState(LoginErrorMessage.nonExistingEmail));
+      emit(LoginFailedState(LoginErrorMessage.invalidEmail));
       return;
     }
     final token = await _repo.loginUser(email, password, device, os);
     if(token.item2 != null){
+      print('from here ${token.item2!.error}');
       switch(token.item2!.error){
         case errorNoUserFoundEmail: emit(LoginFailedState(LoginErrorMessage.noUserFoundEmail)); break;
         case errorIncorrectPassword: emit(LoginFailedState(LoginErrorMessage.incorrectPassword)); break;
@@ -68,7 +68,7 @@ class LoginSuccessState extends LoginState{
 
 
 enum LoginErrorMessage{
-  emptyFields, nonExistingEmail, incorrectPassword, generalError, noUserFoundEmail
+  emptyFields, invalidEmail, incorrectPassword, generalError, noUserFoundEmail
 }
 
 enum LoginNavigateMessage{

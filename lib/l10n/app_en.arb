@@ -185,6 +185,10 @@
     "emailAlreadyInUse" : "The email is already in use",
     "@emailAlreadyInUse" : {
         "description": "the email is already in use"
+    },
+    "generalErrorRegister" : "There was an error, please try again",
+    "@generalErrorRegister":{
+        "description": "There was an error, please try again"
     }
     
 }

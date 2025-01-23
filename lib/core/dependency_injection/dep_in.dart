@@ -10,18 +10,19 @@ import 'package:couples_client_app/services/secure_storage/secure_storage_servic
 import 'package:get_it/get_it.dart';
 
 final depIn = GetIt.instance; 
-
-const url = "http://localhost:8081";
+const mobileUrl = "http://10.0.2.2:8081/v1";
+const webUrl = "http://localhost:8081/v1";
+const url = webUrl;
 
 Future<void> initDependencies() async{
   // services
   final prefServices = await PreferencesServiceImpl.getPreferences();
   depIn.registerSingleton<PreferencesService>(prefServices);
   depIn.registerSingleton<LocalizationService>(LocalizationServiceImpl(prefServices));
-  final SecureStorageService secureStorage = SecureStorageMock();
+  final SecureStorageService secureStorage = SecureStorageServImpl();
 
   //repositories
-  final AuthRepo authRepo = AuthRepoImpl();
+  final AuthRepo authRepo = AuthRepoImpl(url);
 
   //providers
   depIn.registerFactory<LoadingBloc>(()=>LoadingBloc(authRepo, secureStorage)..checkInitialPage());

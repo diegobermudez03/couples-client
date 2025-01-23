@@ -4,3 +4,7 @@ class CustomError{
 
   CustomError(this._error);
 }
+
+class NetworkError extends CustomError{
+  NetworkError(): super('Network error');
+}

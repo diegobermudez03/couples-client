@@ -75,7 +75,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       RegisterErrorMessage.notEqualsPassword => i10n.notEqualsPasswords,
                       RegisterErrorMessage.insecurePassword => i10n.insecurePassword,
                       RegisterErrorMessage.emailAlreadyUsed => i10n.emailAlreadyInUse,
-                      RegisterErrorMessage.genericError => i10n.youMustWriteAValidEmail,
+                      RegisterErrorMessage.genericError => i10n.generalErrorLogin,
                     };
                     showDialog(
                       context: context, 

@@ -34,5 +34,6 @@
     "passwordMustHaveRules" : "La contraseña debe tener al menos 6 caracteres y 1 digito",
     "insecurePassword" : "La contraseña es muy insegura",
     "notEqualsPasswords" : "Las contraseñas no coinciden",
-    "emailAlreadyInUse" : "El correo ya esta siendo usado"
+    "emailAlreadyInUse" : "El correo ya esta siendo usado",
+    "generalErrorRegister" : "Hubo un error, por favor intente de nuevo"
 }
