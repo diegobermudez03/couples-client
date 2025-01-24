@@ -1,5 +1,4 @@
 import 'package:couples_client_app/core/navigation/router.dart';
-import 'package:couples_client_app/presentation/auth/bloc/login_bloc.dart';
 import 'package:couples_client_app/presentation/auth/bloc/register_bloc.dart';
 import 'package:couples_client_app/presentation/auth/widgets/auth_field.dart';
 import 'package:device_info_plus/device_info_plus.dart';
@@ -248,13 +247,31 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   void _registerHandler(BuildContext context, RegisterBloc bloc) async{
-    final deviceInfoPlugin = DeviceInfoPlugin();
+     final deviceInfoPlugin = DeviceInfoPlugin();
     if (Theme.of(context).platform == TargetPlatform.android) {
-      AndroidDeviceInfo androidInfo = await deviceInfoPlugin.androidInfo;
-      bloc.register(emailController.text, passwordController.text, confirmPasswordController.text,'${androidInfo.brand} ${ androidInfo.model} ${androidInfo.device}', 'ANDROID');
+      late final String brand, model, device;
+      try{
+        AndroidDeviceInfo androidInfo = await deviceInfoPlugin.androidInfo;
+        brand = androidInfo.brand;
+        model = androidInfo.model;
+        device = androidInfo.device;
+      }catch(error){
+        brand = "UNKNOWN";
+        model = "UNKNOWN";
+        device = "UNKNOWN";
+      }
+      bloc.register(emailController.text, passwordController.text,confirmPasswordController.text , '$brand $model $device', 'ANDROID');
     } else if (Theme.of(context).platform == TargetPlatform.iOS) {
-      IosDeviceInfo iosInfo = await deviceInfoPlugin.iosInfo;
-      bloc.register(emailController.text, passwordController.text, confirmPasswordController.text, '${iosInfo.model} ${iosInfo.name}', 'IOS');
+      late final String model, name;
+      try{
+       IosDeviceInfo iosInfo = await deviceInfoPlugin.iosInfo;
+        model = iosInfo.model;
+        name = iosInfo.name;
+      }catch(error){
+        model = "UNKNOWN";
+        name = "UNKNOWN";
+      }
+      bloc.register(emailController.text, passwordController.text,confirmPasswordController.text, '$model $name', 'IOS');
     } else {
       bloc.register(emailController.text, passwordController.text,confirmPasswordController.text, 'UNKNOWN', 'WEB');
     }

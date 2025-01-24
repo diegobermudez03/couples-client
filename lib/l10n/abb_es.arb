@@ -1,4 +1,5 @@
 {
+    "@@locale": "es",
     "language": "Español",
     "helloWorld" : "Hola mundo",
     "login" : "Inicia sesion",
@@ -35,5 +36,11 @@
     "insecurePassword" : "La contraseña es muy insegura",
     "notEqualsPasswords" : "Las contraseñas no coinciden",
     "emailAlreadyInUse" : "El correo ya esta siendo usado",
-    "generalErrorRegister" : "Hubo un error, por favor intente de nuevo"
+    "generalErrorRegister" : "Hubo un error, por favor intente de nuevo",
+    "dontHaveAnAccountYetQuestion" : "Aun no tienes una cuenta?",
+    "alreadyHaveAnAccountQuestion" : "Ya tienes una cuenta?",
+    "loginHere" : "Ingresa aqui!",
+    "registerHere" : "Registrate aqui",
+    "letsKnowAboutYou" : "Hablemos un poco de ti",
+    "weNeedToKnowALittleAboutYouBeforeConnecting" : "Necesitamos saber un poco de ti antes de vincularte con tu pareja"
 }

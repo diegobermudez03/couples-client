@@ -27,7 +27,7 @@ class SecureStorageServImpl implements SecureStorageService{
 class SecureStorageMock implements SecureStorageService{
    @override
   Future<String?> readValue(String key) async{
-    return null;
+    return '6WTFV75gY1tb-sXpTzXtLgMJQZObEYa1-0e-57Gn04c=';
   }
 
   @override

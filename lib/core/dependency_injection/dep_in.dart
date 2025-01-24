@@ -19,7 +19,7 @@ Future<void> initDependencies() async{
   final prefServices = await PreferencesServiceImpl.getPreferences();
   depIn.registerSingleton<PreferencesService>(prefServices);
   depIn.registerSingleton<LocalizationService>(LocalizationServiceImpl(prefServices));
-  final SecureStorageService secureStorage = SecureStorageServImpl();
+  final SecureStorageService secureStorage = SecureStorageMock();
 
   //repositories
   final AuthRepo authRepo = AuthRepoImpl(url);

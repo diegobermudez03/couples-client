@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:ionicons/ionicons.dart';
 
-class AuthField extends StatefulWidget{
 
-  final Widget icon;
+class UserField extends StatelessWidget{
+
   final String hintText;
   final String labelText;
   final bool password;
   final bool editable;
   final TextEditingController controller;
 
-  AuthField({
+  const UserField({
     super.key,
-    required this.icon,
     required this.hintText,
     required this.labelText,
     required this.controller,
@@ -22,55 +20,31 @@ class AuthField extends StatefulWidget{
   });
 
   @override
-  State<AuthField> createState() => _AuthFieldState();
-}
-
-class _AuthFieldState extends State<AuthField> {
-
-  bool hideText = false;
-
-  @override
-  void initState() {
-    hideText = widget.password;
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
     return TextField(
-      readOnly: !widget.editable,
-      controller: widget.controller,
+      readOnly: !editable,
+      controller: controller,
       style: textTheme.bodyLarge!.copyWith(
-        color: colorScheme.onTertiaryContainer
+        color: colorScheme.onSecondaryContainer
       ),
 
       // Placeholder text styling
       decoration: InputDecoration(
         // Placeholder text
-        hintText: widget.hintText,
+        hintText: hintText,
         hintStyle: const TextStyle(
           color: Colors.grey,
           fontStyle: FontStyle.italic,
         ),
 
         // Label above the text field
-        labelText: widget.labelText,
+        labelText: labelText,
         labelStyle: textTheme.titleMedium!.copyWith(
           color: colorScheme.primary
         ),
         
-        prefixIcon: widget.icon,
-
-        suffixIcon: widget.password ? IconButton(
-          onPressed: (){
-            setState(() {
-              hideText = !hideText;
-            });
-          }, 
-          icon: hideText ? const Icon(Ionicons.eye) : const Icon(Ionicons.eye_off)
-        ) : null,
         // Borders
         enabledBorder: OutlineInputBorder(
           borderSide: const BorderSide(color: Colors.transparent,width: 0),
@@ -85,16 +59,13 @@ class _AuthFieldState extends State<AuthField> {
 
         // Filled background
         filled: true,
-        fillColor: colorScheme.tertiaryContainer,
+        fillColor: colorScheme.secondaryContainer,
       ),
 
       // Text input control
       keyboardType: TextInputType.text,
       textInputAction: TextInputAction.done,
-      maxLength: 50, 
-      obscureText: hideText,
-
-      
+      maxLength: 50,
     );
   }
 }

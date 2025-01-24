@@ -58,6 +58,8 @@ dependencies:
   # to get device info 
   device_info_plus: ^11.2.1
   http: ^1.3.0
+  #for a date picker
+  syncfusion_flutter_datepicker: ^28.1.41
   # for i10
   flutter_localizations:
     sdk: flutter

@@ -1,4 +1,5 @@
 {
+    "@@locale": "en",
     "language": "English",
     "@language": {
         "description": "The current language"
@@ -189,6 +190,16 @@
     "generalErrorRegister" : "There was an error, please try again",
     "@generalErrorRegister":{
         "description": "There was an error, please try again"
+    },
+
+    "letsKnowAboutYou" : "Lets know about you",
+    "@letsKnowAboutYou" : {
+        "description": "lets know about you"
+    },
+
+    "weNeedToKnowALittleAboutYouBeforeConnecting" : "We need to know a little about you before connecting with your partner",
+    "@weNeedToKnowALittleAboutYouBeforeConnecting" : {
+        "description": "description for create user"
     }
     
 }

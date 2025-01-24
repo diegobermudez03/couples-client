@@ -69,7 +69,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     }
                   }
                   if(state is LoginFailedState){
-                    print(state.message);
                     final String message = switch(state.message){
                       LoginErrorMessage.emptyFields =>  i10n.youMustFillAllFields,
                       LoginErrorMessage.invalidEmail =>  i10n.youMustWriteAValidEmail,
@@ -239,11 +238,29 @@ class _LoginScreenState extends State<LoginScreen> {
   void _loginHandler(BuildContext context, LoginBloc bloc) async{
     final deviceInfoPlugin = DeviceInfoPlugin();
     if (Theme.of(context).platform == TargetPlatform.android) {
-      AndroidDeviceInfo androidInfo = await deviceInfoPlugin.androidInfo;
-      bloc.login(emailController.text, passwordController.text, '${androidInfo.brand} ${ androidInfo.model} ${androidInfo.device}', 'ANDROID');
+      late final String brand, model, device;
+      try{
+        AndroidDeviceInfo androidInfo = await deviceInfoPlugin.androidInfo;
+        brand = androidInfo.brand;
+        model = androidInfo.model;
+        device = androidInfo.device;
+      }catch(error){
+        brand = "UNKNOWN";
+        model = "UNKNOWN";
+        device = "UNKNOWN";
+      }
+      bloc.login(emailController.text, passwordController.text, '$brand $model $device', 'ANDROID');
     } else if (Theme.of(context).platform == TargetPlatform.iOS) {
-      IosDeviceInfo iosInfo = await deviceInfoPlugin.iosInfo;
-      bloc.login(emailController.text, passwordController.text, '${iosInfo.model} ${iosInfo.name}', 'IOS');
+      late final String model, name;
+      try{
+       IosDeviceInfo iosInfo = await deviceInfoPlugin.iosInfo;
+        model = iosInfo.model;
+        name = iosInfo.name;
+      }catch(error){
+        model = "UNKNOWN";
+        name = "UNKNOWN";
+      }
+      bloc.login(emailController.text, passwordController.text, '$model $name', 'IOS');
     } else {
       bloc.login(emailController.text, passwordController.text, 'UNKNOWN', 'WEB');
     }

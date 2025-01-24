@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:couples_client_app/core/errors/errors.dart';
 import 'package:couples_client_app/respositories/auth_repo.dart';
 import 'package:http/http.dart' as http;
