@@ -1,205 +1,160 @@
 {
     "@@locale": "en",
     "language": "English",
-    "@language": {
-        "description": "The current language"
-    },
+    "@language": {},
 
     "helloWorld" : "Hello world",
-    "@helloWorld" : {
-        "description": "A greeting"
-    },
+    "@helloWorld" : {},
 
     "login" : "Login",
-    "@login" : {
-        "description": "to login"
-    },
+    "@login" : {},
 
     "introTitlePage1" : "Title for page 1",
-    "@introTitlePage1" : {
-        "description": "the title for page 1"
-    },
+    "@introTitlePage1" : {},
+
     "introTitlePage2" : "Title for page 2",
-    "@introTitlePage2" : {
-        "description": "the title for page 2"
-    },
+    "@introTitlePage2" : {},
+
     "introTitlePage3" : "Title for page 3",
-    "@introTitlePage3" : {
-        "description": "the title for page 3"
-    },
+    "@introTitlePage3" : {},
+
     "introTitlePage4" : "Title for page 4",
-    "@introTitlePage4" : {
-        "description": "the title for page 4"
-    },
+    "@introTitlePage4" : {},
+
     "descIntroPage1" : "this is a long description for page 1, here we talk a lot, a long description, this is what it is, oh yeah.",
-    "@descIntroPage1": {
-        "description": "description for page 1"
-    },
+    "@descIntroPage1": {},
+
     "descIntroPage2" : "this is a long description for page 2, here we talk a lot, a long description, this is what it is, oh yeah.",
-    "@descIntroPage2": {
-        "description": "description for page 2"
-    },
+    "@descIntroPage2": {},
+
     "descIntroPage3" : "this is a long description for page 3, here we talk a lot, a long description, this is what it is, oh yeah.",
-    "@descIntroPage3": {
-        "description": "description for page 3"
-    },
+    "@descIntroPage3": {},
+
     "descIntroPage4" : "this is a long description for page 4, here we talk a lot, a long description, this is what it is, oh yeah.",
-    "@descIntroPage4": {
-        "description": "description for page 4"
-    },
+    "@descIntroPage4": {},
 
     "connectWithoutAccount" : "Connect with partner without account",
-    "@connectWithoutAccount": {
-        "description": "to connect without account"
-    },
+    "@connectWithoutAccount": {},
 
     "or" : "Or",
-    "@or": {
-        "description": "this or that"
-    },
+    "@or": {},
 
     "register" : "Register",
-    "@register" :{
-        "description": "to register"
-    },
+    "@register" :{},
 
     "welcomeBack" : "Welcome back",
-    "@welcomeBack" : {
-        "description": "a greeting in the login page"
-    },
+    "@welcomeBack" : {},
 
     "wereHappyToSeeYouAgain" : "We're glad to see you again!",
-    "@wereHappyToSeeYouAgain" :{
-        "description": "the description to welcome back"
-    },
+    "@wereHappyToSeeYouAgain" :{},
 
     "emailLabel" : "Email",
-    "@emailLabel" : {
-        "description": "the label for the email"
-    },
+    "@emailLabel" : {},
 
     "emailHintText" : "Type your email",
-    "@emailHintText" : {
-        "description": "the hint text for email"
-    },
+    "@emailHintText" : {},
 
     "passwordLabel" : "Password",
-    "@passwordLabel" : {
-        "description": "the label for the password"
-    },
+    "@passwordLabel" : {},
 
     "passwordHintText" : "Type your password",
-    "@passwordHintText" : {
-        "description": "the hint text for password"
-    },
+    "@passwordHintText" : {},
 
     "errorLogin" : "Unable to login",
-    "@errorLogin" : {
-        "description": "title to show when unable to login"
-    },
+    "@errorLogin" : {},
 
     "youMustFillAllFields" : "Make sure to fill all fields",
-    "@youMustFillAllFields" : {
-        "description": "description of error you should fill all fields"
-    },
+    "@youMustFillAllFields" : {},
 
     "youMustWriteAValidEmail" : "The email is not a valid email",
-    "@youMustWriteAValidEmail" : {
-        "description": "invalid email"
-    },
+    "@youMustWriteAValidEmail" : {},
 
     "anErrorOcurred" : "An error ocurred",
-    "@anErrorOcurred" : {
-        "description": "Generic error desc"
-    },
+    "@anErrorOcurred" : {},
 
     "ok" : "Ok",
-    "@ok" : {
-        "description": "Ok, fine"
-    },
+    "@ok" : {},
 
     "incorrectPassword" : "Incorrect password",
-    "@incorrectPassword" : {
-        "description": "the password was incorrect"
-    },
+    "@incorrectPassword" : {},
 
     "noUserFoundEmail" : "There's no user with that email",
-    "@noUserFoundEmail" : {
-        "description": "no user found email error"
-    },
+    "@noUserFoundEmail" : {},
 
     "generalErrorLogin" : "There was an error, please try again",
-    "@generalErrorLogin":{
-        "description": "general error for login"
-    },
+    "@generalErrorLogin":{},
 
     "hello" : "Hello!",
-    "@hello" : {
-        "description": "Hello greeting"
-    },
+    "@hello" : {},
 
     "registerToGetStarted" : "Register to get started",
-    "@registerToGetStarted" : {
-        "description": "register desc"
-    },
+    "@registerToGetStarted" : {},
 
     "alreadyHaveAnAccountQuestion" : "Already have an account?",
-    "@alreadyHaveAnAccountQuestion" : {
-        "description": "already have an account"
-    },
+    "@alreadyHaveAnAccountQuestion" : {},
 
     "loginHere" : "Login here!",
-    "@loginHere" : {
-        "description": "Login here"
-    },
+    "@loginHere" : {},
 
     "dontHaveAnAccountYetQuestion" : "Don't have an account yet?",
-    "@dontHaveAnAccountYetQuestion" : {
-        "description": "dont have an account yer"
-    },
+    "@dontHaveAnAccountYetQuestion" : {},
+    
     "registerHere" : "Register here!",
-    "@registerHere" : {
-        "description": "rgister hre"
-    },
+    "@registerHere" : {},
 
     "confirmPasswordLabel" : "Confirm password",
-    "@confirmPasswordLabel" : {
-        "description": "please confirm your password"
-    },
+    "@confirmPasswordLabel" : {},
+
     "confirmPasswordHint" : "retype your password",
-    "@confirmPasswordHint" : {
-        "description": "please retype your password"
-    },
+    "@confirmPasswordHint" : {},
 
     "passwordMustHaveRules" : "Password must have at least 6 characters and 1 digit",
-    "@passwordMustHaveRules":{
-        "description": "password helper text"
-    },
+    "@passwordMustHaveRules":{},
+
     "insecurePassword" : "The password is to insecure",
-    "@insecurePassword" : {
-        "description": "insecure password"
-    },
+    "@insecurePassword" : {},
+
     "notEqualsPasswords" : "The passwords are not equal",
-    "@notEqualsPasswords" : {
-        "description": "non euqals passwords"
-    },
+    "@notEqualsPasswords" : {},
+
     "emailAlreadyInUse" : "The email is already in use",
-    "@emailAlreadyInUse" : {
-        "description": "the email is already in use"
-    },
+    "@emailAlreadyInUse" : {},
+
     "generalErrorRegister" : "There was an error, please try again",
-    "@generalErrorRegister":{
-        "description": "There was an error, please try again"
-    },
+    "@generalErrorRegister":{},
 
     "letsKnowAboutYou" : "Lets know about you",
-    "@letsKnowAboutYou" : {
-        "description": "lets know about you"
-    },
+    "@letsKnowAboutYou" : {},
 
     "weNeedToKnowALittleAboutYouBeforeConnecting" : "We need to know a little about you before connecting with your partner",
-    "@weNeedToKnowALittleAboutYouBeforeConnecting" : {
-        "description": "description for create user"
-    }
-    
+    "@weNeedToKnowALittleAboutYouBeforeConnecting" : {},
+
+    "firstName" : "Firstname",
+    "@firstName" : {},
+
+    "enterYourFirstName" : "Enter your firstname",
+    "@enterYourFirstName" : {},
+
+    "lastName" : "Lastname",
+    "@lastName":{},
+
+    "enterYourLastname" : "Enter your lastname",
+    "@enterYourLastname" : {},
+
+    "selectYourBirthdate" : "Select your birth date",
+    "@selectYourBirthdate" : {},
+
+    "selectDate" : "Select date",
+    "@selectDate" :{},
+
+    "selectYourGender" : "Select your gender",
+    "@selectYourGender": {},
+    "male" : "Male",
+    "@male" :{},
+    "female" : "Female",
+    "@female" : {},
+    "exitLogout" : "Logout",
+    "@exitLogout" : {},
+    "next" : "Next",
+    "@next" : {}
 }

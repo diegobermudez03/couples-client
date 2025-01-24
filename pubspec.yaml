@@ -36,6 +36,7 @@ dependencies:
   google_fonts: ^6.2.1
   # for better icons 
   ionicons: ^0.2.2
+  rive_animated_icon: ^2.0.3
   # for url navigation
   go_router: ^14.6.3
   #for preferences

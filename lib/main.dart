@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: const Color(0x87ceeb)),
-        textTheme: GoogleFonts.chewyTextTheme(Theme.of(context).textTheme),
+        textTheme: GoogleFonts.comfortaaTextTheme(Theme.of(context).textTheme),
         useMaterial3: true,
       ),
       supportedLocales: L10n.all,

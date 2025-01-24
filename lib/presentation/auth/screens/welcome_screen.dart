@@ -234,7 +234,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       child: FittedBox(
                         fit: BoxFit.scaleDown,
                         child: ElevatedButton(
-                          onPressed: ()=> context.push(routeLogUserPage), 
+                          onPressed: ()=> context.go(routeLogUserPage), 
                           style: ButtonStyle(
                             backgroundColor: WidgetStatePropertyAll(colorScheme.tertiaryContainer),
                             elevation: const WidgetStatePropertyAll(3),

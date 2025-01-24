@@ -42,5 +42,16 @@
     "loginHere" : "Ingresa aqui!",
     "registerHere" : "Registrate aqui",
     "letsKnowAboutYou" : "Hablemos un poco de ti",
-    "weNeedToKnowALittleAboutYouBeforeConnecting" : "Necesitamos saber un poco de ti antes de vincularte con tu pareja"
+    "weNeedToKnowALittleAboutYouBeforeConnecting" : "Necesitamos saber un poco de ti antes de vincularte con tu pareja",
+    "firstName" : "Nombre",
+    "enterYourFirstName" : "Ingresa tu nombre",
+    "lastName" : "Apellidos",
+    "enterYourLastname" : "Ingresa tus apellidos",
+    "selectYourBirthdate" : "Selecciona tu fecha de nacimiento",
+    "selectDate" : "Seleccionar fecha",
+    "selectYourGender" : "Selecciona tu genero",
+    "male" : "Masculino",
+    "female" : "Femenino",
+    "exitLogout" : "Salir",
+    "next" : "Siguiente"
 }
