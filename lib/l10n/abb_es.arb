@@ -21,6 +21,7 @@
     "passwordLabel" : "Contraseña",
     "passwordHintText" : "Ingresa tu contraseña",
     "errorLogin" : "No se pudo iniciar sesion",
+    "errorRegister" : "No se pudo registrar",
     "youMustFillAllFields" : "Debe llenar todos los campos",
     "ok" : "Ok",
     "youMustWriteAValidEmail" : "Debes ingresar un correo valido",
@@ -53,5 +54,13 @@
     "male" : "Masculino",
     "female" : "Femenino",
     "exitLogout" : "Salir",
-    "next" : "Siguiente"
+    "next" : "Siguiente",
+    "cancel" : "Cancelar",
+    "optional" : "Opcional",
+    "registerWithGoogle" : "Registrate con Google",
+    "loginWithGoogle" : "Ingresa con Google",
+    "tooYoungYouMustBeAtLeast" : "Eres muy joven, debes tener al menos 14 años",
+    "accountAlreadyHasUser" : "Tu cuenta ya tiene un usuario asociado",
+    "unableToCreateUser" : "Error creando usuario",
+    "errorCreatingUser" : "Hubo un error creando el usuario, intenta nuevamente"
 }

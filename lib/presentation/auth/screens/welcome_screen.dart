@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:couples_client_app/core/navigation/router.dart';
 import 'package:couples_client_app/presentation/auth/widgets/intro_page.dart';
+import 'package:couples_client_app/presentation/auth/widgets/or_divider.dart';
 import 'package:couples_client_app/shared/helpers/func_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -146,6 +147,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             Expanded(
               flex: 20,
               child: Container(
+                padding: const EdgeInsetsDirectional.symmetric(horizontal: 30),
                 decoration: BoxDecoration(
                   color: colorScheme.surfaceContainerLowest,
                   borderRadius: const BorderRadius.only(
@@ -156,8 +158,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 child: Column(
                   children: [
                     const Spacer(flex: 3,),
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 30),
+                    SizedBox(
                       width: double.infinity,
                       child: OutlinedButton(
                         onPressed: ()=>context.push(routeLoginPage), 
@@ -183,8 +184,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       ),
                     ),
                     const Spacer(flex: 1,),
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 30),
+                    SizedBox(
                       width: double.infinity,
                       child: OutlinedButton(
                         onPressed: ()=>context.push(routeRegisterPage), 
@@ -211,60 +211,42 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         )
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                      child: Row(
-                        children: [
-                          const Expanded(
-                            child: Divider(
-                              thickness: 3,
-                            ),
-                          ),
-                          Text('   ${i10n.or}   ', style: textTheme.bodyLarge,),
-                          const Expanded(
-                            child: Divider(
-                              thickness: 3,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 30),
-                      child: FittedBox(
-                        fit: BoxFit.scaleDown,
-                        child: ElevatedButton(
-                          onPressed: ()=> context.go(routeLogUserPage), 
-                          style: ButtonStyle(
-                            backgroundColor: WidgetStatePropertyAll(colorScheme.tertiaryContainer),
-                            elevation: const WidgetStatePropertyAll(3),
-                            shape: WidgetStatePropertyAll(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
-                                side: const BorderSide(width: 1)
-                              )
+                    const Spacer(),
+                    OrDivider(orText:  i10n.or),
+                    const Spacer(),
+                    FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: ElevatedButton(
+                        onPressed: ()=> context.go(routeLogUserPage), 
+                        style: ButtonStyle(
+                          backgroundColor: WidgetStatePropertyAll(colorScheme.tertiaryContainer),
+                          elevation: const WidgetStatePropertyAll(3),
+                          shape: WidgetStatePropertyAll(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                              //side: const BorderSide(width: 1)
                             )
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: Row(
-                              children: [
-                                const FaIcon(
-                                  FontAwesomeIcons.heart,
-                                  size: 40,
-                                ),
-                                const SizedBox(width: 10,),
-                                Text(
-                                  i10n.connectWithoutAccount,
-                                  style: textTheme.labelLarge!.copyWith(
-                                    color: colorScheme.onTertiaryContainer,
-                                    fontSize: 20
-                                  ),
-                                )
-                              ],
-                            ),
                           )
                         ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Row(
+                            children: [
+                              const FaIcon(
+                                FontAwesomeIcons.heart,
+                                size: 40,
+                              ),
+                              const SizedBox(width: 10,),
+                              Text(
+                                i10n.connectWithoutAccount,
+                                style: textTheme.labelLarge!.copyWith(
+                                  color: colorScheme.onTertiaryContainer,
+                                  fontSize: 20
+                                ),
+                              )
+                            ],
+                          ),
+                        )
                       ),
                     ),
                     const Spacer(flex: 3,),

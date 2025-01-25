@@ -63,6 +63,9 @@
     "errorLogin" : "Unable to login",
     "@errorLogin" : {},
 
+    "errorRegister" : "Unable to register",
+    "@errorRegister" :{},
+
     "youMustFillAllFields" : "Make sure to fill all fields",
     "@youMustFillAllFields" : {},
 
@@ -156,5 +159,21 @@
     "exitLogout" : "Logout",
     "@exitLogout" : {},
     "next" : "Next",
-    "@next" : {}
+    "@next" : {},
+    "cancel" : "Cancel",
+    "@cancel" : {},
+    "optional" : "Optional",
+    "@optional" : {},
+    "registerWithGoogle" : "Register with Google",
+    "@registerWithGoogle" : {},
+    "loginWithGoogle" : "Login with Google",
+    "@loginWithGoogle" :{},
+    "tooYoungYouMustBeAtLeast" : "You're too young, you must be at least 14 years old",
+    "@tooYoungYouMustBeAtLeast" :{},
+    "accountAlreadyHasUser" : "Your account already has an user associated",
+    "@accountAlreadyHasUser" : {},
+    "unableToCreateUser" : "Unable to create user",
+    "@unableToCreateUser" :{},
+    "errorCreatingUser" : "There was an error, please try again",
+    "@errorCreatingUser" :{}
 }

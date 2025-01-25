@@ -1,6 +1,6 @@
 import 'package:couples_client_app/respositories/auth_repo.dart';
 import 'package:couples_client_app/services/secure_storage/secure_storage_service.dart';
-import 'package:couples_client_app/shared/global_variables.dart';
+import 'package:couples_client_app/shared/global_variables/tokens_management.dart';
 import 'package:couples_client_app/shared/helpers/messages/error_messages.dart';
 import 'package:couples_client_app/shared/helpers/messages/status_messags.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,8 +9,9 @@ class LoginBloc extends Cubit<LoginState>{
 
   final AuthRepo _repo;
   final SecureStorageService _storage;
+  final TokensManagement _tokens;
 
-  LoginBloc(this._repo, this._storage): super(LoginInitialState());
+  LoginBloc(this._repo, this._storage, this._tokens): super(LoginInitialState());
 
   void login(String email, String password, String device, String os) async{
     emit(LoginCheckingState());
@@ -24,7 +25,6 @@ class LoginBloc extends Cubit<LoginState>{
     }
     final token = await _repo.loginUser(email, password, device, os);
     if(token.item2 != null){
-      print('from here ${token.item2!.error}');
       switch(token.item2!.error){
         case errorNoUserFoundEmail: emit(LoginFailedState(LoginErrorMessage.noUserFoundEmail)); break;
         case errorIncorrectPassword: emit(LoginFailedState(LoginErrorMessage.incorrectPassword)); break;
@@ -34,7 +34,7 @@ class LoginBloc extends Cubit<LoginState>{
     }
     //store efresh token
     _storage.writeValue(refreshTokenKey, token.item1);
-    GlobalVariables.refreshToken = refreshTokenKey;
+    _tokens.refreshToken = token.item1;
     final status = await _repo.getUserStatus(token.item1);
     if(status.item2 !=null){
       emit(LoginFailedState(LoginErrorMessage.generalError));

@@ -1,6 +1,9 @@
 import 'package:couples_client_app/core/navigation/router.dart';
 import 'package:couples_client_app/presentation/auth/bloc/register_bloc.dart';
 import 'package:couples_client_app/presentation/auth/widgets/auth_field.dart';
+import 'package:couples_client_app/presentation/auth/widgets/google_auth_button.dart';
+import 'package:couples_client_app/presentation/auth/widgets/or_divider.dart';
+import 'package:couples_client_app/shared/dialogs/error_dialog.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -79,39 +82,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     showDialog(
                       context: context, 
                       builder: (ctx){
-                        return Dialog(
-                          child: FittedBox(
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    i10n.errorLogin,
-                                    style: textTheme.headlineLarge,
-                                  ),
-                                  const SizedBox(height: 25,),
-                                  Text(
-                                    message,
-                                    style: textTheme.bodyLarge,
-                                  ),
-                                  const SizedBox(height: 25,),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      TextButton(
-                                        onPressed: ()=>Navigator.of(context).pop(), 
-                                        child: Text(
-                                          i10n.ok,
-                                          style: textTheme.bodyLarge!.copyWith(color: colorScheme.primary),
-                                        )
-                                      ),
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ),
-                          )
+                        return ErrorDialog(
+                          tittle: i10n.errorRegister, 
+                          error: message, 
+                          okText: i10n.ok
                         );
                       }
                     );
@@ -158,7 +132,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 borderRadius:
                                     const BorderRadius.only(topLeft: Radius.circular(45), topRight: Radius.circular(45))),
                             child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 45.0),
+                              padding: const EdgeInsets.symmetric(horizontal: 35.0),
                               child: Column(
                                 children: [
                                   const Spacer(
@@ -195,6 +169,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       password: true,
                                       editable: !isLoading,
                                       controller: confirmPasswordController),
+                                  const Spacer(),
+                                  OrDivider(orText:  i10n.or),
+                                  const Spacer(),
+                                  GoogleAuthButton(
+                                    text: i10n.registerWithGoogle, 
+                                    handler: (){}
+                                  ),
                                   const Spacer(
                                     flex: 7,
                                   ),

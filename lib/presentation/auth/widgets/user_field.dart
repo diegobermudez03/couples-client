@@ -8,6 +8,7 @@ class UserField extends StatelessWidget{
   final bool password;
   final bool editable;
   final TextEditingController controller;
+  final String? helperText;
 
   const UserField({
     super.key,
@@ -16,7 +17,7 @@ class UserField extends StatelessWidget{
     required this.controller,
     required this.editable,
     this.password = false,
-    
+    this.helperText
   });
 
   @override
@@ -34,6 +35,7 @@ class UserField extends StatelessWidget{
       decoration: InputDecoration(
         // Placeholder text
         hintText: hintText,
+        helperText: helperText,
         hintStyle: const TextStyle(
           color: Colors.grey,
           fontStyle: FontStyle.italic,
@@ -61,7 +63,7 @@ class UserField extends StatelessWidget{
         filled: true,
         fillColor: colorScheme.secondaryContainer,
       ),
-
+      
       // Text input control
       keyboardType: TextInputType.text,
       textInputAction: TextInputAction.done,

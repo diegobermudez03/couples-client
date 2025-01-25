@@ -1,13 +1,14 @@
 import 'package:couples_client_app/respositories/auth_repo.dart';
 import 'package:couples_client_app/services/secure_storage/secure_storage_service.dart';
-import 'package:couples_client_app/shared/global_variables.dart';
+import 'package:couples_client_app/shared/global_variables/tokens_management.dart';
 import 'package:couples_client_app/shared/helpers/messages/error_messages.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RegisterBloc extends Cubit<RegisterState>{
   final AuthRepo _repo;
   final SecureStorageService _storage;
-  RegisterBloc(this._repo, this._storage): super(RegisterInitialState());
+  final TokensManagement _tokens;
+  RegisterBloc(this._repo, this._storage, this._tokens): super(RegisterInitialState());
 
   void register(String email, String password, String passwordVerification, String device, String os) async{
     emit(RegisterCheckingState());
@@ -36,7 +37,7 @@ class RegisterBloc extends Cubit<RegisterState>{
       return;
     }
     _storage.writeValue(refreshTokenKey, token.item1);
-    GlobalVariables.refreshToken = refreshTokenKey;
+    _tokens.refreshToken = token.item1;
     emit(RegisterSuccessState());
   }
 }

@@ -1,3 +1,4 @@
+import 'package:couples_client_app/presentation/auth/bloc/cretae_user_bloc.dart';
 import 'package:couples_client_app/presentation/auth/bloc/login_bloc.dart';
 import 'package:couples_client_app/presentation/auth/bloc/register_bloc.dart';
 import 'package:couples_client_app/presentation/auth/screens/connect_couple_screen.dart';
@@ -28,7 +29,7 @@ final router = GoRouter(routes: [
       create: (context) => GetIt.instance.get<LoadingBloc>(),
       child: LoadingScreen(),
     ),
-    pageBuilder: GoTransitions.fadeUpwards,
+    pageBuilder: GoTransitions.fadeUpwards.call,
   ),
   GoRoute(
     path: routeLoginPage,
@@ -36,34 +37,37 @@ final router = GoRouter(routes: [
       create: (context) => GetIt.instance.get<LoginBloc>(),
       child: LoginScreen(),
     ),
-    pageBuilder: GoTransitions.openUpwards,
+    pageBuilder: GoTransitions.openUpwards.call,
   ),
-   GoRoute(
+  GoRoute(
     path: routeRegisterPage,
     builder: (_, __) => BlocProvider(
       create: (context) => GetIt.instance.get<RegisterBloc>(),
       child: RegisterScreen(),
     ),
-    pageBuilder: GoTransitions.openUpwards,
+    pageBuilder: GoTransitions.openUpwards.call,
   ),
   GoRoute(
     path: routeWelcomePage,
-    builder: (_, __) => WelcomeScreen(),
-    pageBuilder: GoTransitions.fadeUpwards,
+    builder: (_, __) => const WelcomeScreen(),
+    pageBuilder: GoTransitions.fadeUpwards.call,
   ),
   GoRoute(
     path: routeLogUserPage,
-    builder: (_, __) => CreateUserScreen(),
-    pageBuilder: GoTransitions.openUpwards,
+    builder: (_, __) => BlocProvider(
+      create: (context) => GetIt.instance.get<CretaeUserBloc>(),
+      child: const CreateUserScreen(),
+    ),
+    pageBuilder: GoTransitions.openUpwards.call,
   ),
   GoRoute(
     path: routeConnectCouplePage,
     builder: (_, __) => ConnectCoupleScreen(),
-    pageBuilder: GoTransitions.fadeUpwards,
+    pageBuilder: GoTransitions.slide.toLeft.withSettings(duration: const Duration(milliseconds: 300)).call
   ),
   GoRoute(
     path: routeMainPage,
     builder: (_, __) => MainScreen(),
-    pageBuilder: GoTransitions.fadeUpwards,
+    pageBuilder: GoTransitions.fadeUpwards.call,
   ),
 ]);

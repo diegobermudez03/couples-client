@@ -5,6 +5,7 @@ const refreshTokenKey = "refresh_token";
 abstract class SecureStorageService{
   Future<String?> readValue(String key);
   Future<void> writeValue(String key, String value);
+  Future<void> deleteValue(String key);
 }
 
 
@@ -21,6 +22,11 @@ class SecureStorageServImpl implements SecureStorageService{
   Future<void> writeValue(String key, String value) async{
     await storage.write(key: key, value: value);
   }
+  
+  @override
+  Future<void> deleteValue(String key) async{
+    await storage.delete(key: key);
+  }
 }
 
 
@@ -32,5 +38,9 @@ class SecureStorageMock implements SecureStorageService{
 
   @override
   Future<void> writeValue(String key, String value) async{
+  }
+  
+  @override
+  Future<void> deleteValue(String key) async{
   }
 }

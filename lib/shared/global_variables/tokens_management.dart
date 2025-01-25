@@ -1,0 +1,3 @@
+class TokensManagement {
+  String? refreshToken;
+}
