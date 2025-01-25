@@ -1,5 +1,5 @@
 
-import 'package:couples_client_app/presentation/auth/bloc/cretae_user_bloc.dart';
+import 'package:couples_client_app/presentation/auth/bloc/create_user_bloc.dart';
 import 'package:couples_client_app/presentation/auth/bloc/login_bloc.dart';
 import 'package:couples_client_app/presentation/auth/bloc/register_bloc.dart';
 import 'package:couples_client_app/presentation/loading/bloc/loading_bloc.dart';
@@ -32,5 +32,5 @@ Future<void> initDependencies() async{
   depIn.registerFactory<LoadingBloc>(()=>LoadingBloc(authRepo, secureStorage, tokens)..checkInitialPage());
   depIn.registerFactory<LoginBloc>(()=>LoginBloc(authRepo, secureStorage, tokens));
   depIn.registerFactory<RegisterBloc>(()=>RegisterBloc(authRepo, secureStorage, tokens));
-  depIn.registerFactory<CretaeUserBloc>(()=>CretaeUserBloc(authRepo, depIn.get(), tokens, secureStorage));
+  depIn.registerFactory<CreateUserBloc>(()=>CreateUserBloc(authRepo, depIn.get(), tokens, secureStorage));
 }

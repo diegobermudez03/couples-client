@@ -6,13 +6,13 @@ import 'package:couples_client_app/shared/global_variables/tokens_management.dar
 import 'package:couples_client_app/shared/helpers/messages/error_messages.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CretaeUserBloc extends Cubit<CreateUserState>{
+class CreateUserBloc extends Cubit<CreateUserState>{
   final AuthRepo _repo;
   final LocalizationService _localService;
   final TokensManagement _tokens;
   final SecureStorageService _storage;
 
-  CretaeUserBloc(this._repo, this._localService, this._tokens, this._storage):super(CreateUserInitialState());
+  CreateUserBloc(this._repo, this._localService, this._tokens, this._storage):super(CreateUserInitialState());
 
   void createUser(String firstName, String lastName, DateTime? birthDate, bool? male) async{
     emit(CreateUserLoadingState());

@@ -109,7 +109,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   alignment: Alignment.topLeft,
                                   child: Text(
                                     i10n.hello,
-                                    style: textTheme.displayMedium!.copyWith(color: colorScheme.onPrimary),
+                                    style: textTheme.displayMedium!.copyWith(
+                                      color: colorScheme.onPrimary,
+                                      fontWeight: FontWeight.bold
+                                    ),
                                   ),
                                 ),
                                 Align(

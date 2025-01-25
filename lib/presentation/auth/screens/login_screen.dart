@@ -109,7 +109,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                   alignment: Alignment.topLeft,
                                   child: Text(
                                     i10n.welcomeBack.replaceAll(' ', '\n'),
-                                    style: textTheme.displayMedium!.copyWith(color: colorScheme.onPrimary),
+                                    style: textTheme.displayMedium!.copyWith(
+                                      color: colorScheme.onPrimary,
+                                      fontWeight: FontWeight.bold
+                                    ),
                                   ),
                                 ),
                                 Align(

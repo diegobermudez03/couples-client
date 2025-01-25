@@ -1,4 +1,4 @@
-import 'package:couples_client_app/presentation/auth/bloc/cretae_user_bloc.dart';
+import 'package:couples_client_app/presentation/auth/bloc/create_user_bloc.dart';
 import 'package:couples_client_app/presentation/auth/bloc/login_bloc.dart';
 import 'package:couples_client_app/presentation/auth/bloc/register_bloc.dart';
 import 'package:couples_client_app/presentation/auth/screens/connect_couple_screen.dart';
@@ -55,7 +55,7 @@ final router = GoRouter(routes: [
   GoRoute(
     path: routeLogUserPage,
     builder: (_, __) => BlocProvider(
-      create: (context) => GetIt.instance.get<CretaeUserBloc>(),
+      create: (context) => GetIt.instance.get<CreateUserBloc>(),
       child: const CreateUserScreen(),
     ),
     pageBuilder: GoTransitions.openUpwards.call,

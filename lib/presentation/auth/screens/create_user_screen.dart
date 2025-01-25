@@ -1,5 +1,5 @@
 import 'package:couples_client_app/core/navigation/router.dart';
-import 'package:couples_client_app/presentation/auth/bloc/cretae_user_bloc.dart';
+import 'package:couples_client_app/presentation/auth/bloc/create_user_bloc.dart';
 import 'package:couples_client_app/presentation/auth/widgets/user_field.dart';
 import 'package:couples_client_app/shared/dialogs/error_dialog.dart';
 import 'package:flutter/material.dart';
@@ -61,7 +61,7 @@ class _CreateUserScreenState extends State<CreateUserScreen> {
               ),
             ),
             SafeArea(
-              child: BlocListener<CretaeUserBloc, CreateUserState>(
+              child: BlocListener<CreateUserBloc, CreateUserState>(
                 listener: (context, state) {
                   if(state is CreateUserLogoutState){
                     context.go(routeWelcomePage);
@@ -84,9 +84,9 @@ class _CreateUserScreenState extends State<CreateUserScreen> {
                     );
                   }
                 },
-                child: BlocBuilder<CretaeUserBloc, CreateUserState>(
+                child: BlocBuilder<CreateUserBloc, CreateUserState>(
                   builder: (context, state) {
-                    final bloc = BlocProvider.of<CretaeUserBloc>(context);
+                    final bloc = BlocProvider.of<CreateUserBloc>(context);
                     final bool loading = state is CreateUserLoadingState;
                     return Column(
                       children: [
@@ -109,7 +109,9 @@ class _CreateUserScreenState extends State<CreateUserScreen> {
                                     alignment: AlignmentDirectional.topStart,
                                     child: Text(
                                       l10n.letsKnowAboutYou,
-                                      style: textTheme.displaySmall,
+                                      style: textTheme.displaySmall!.copyWith(
+                                        fontWeight: FontWeight.bold
+                                      ),
                                     ),
                                   ),
                                   Align(
