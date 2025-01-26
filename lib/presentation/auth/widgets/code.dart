@@ -10,12 +10,30 @@ class Code extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: code.characters.map((char)=>_createNumber(context, char)).toList(),
-      ),
+    return Column(
+      children: [
+        SizedBox(
+          width: double.infinity,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: code.characters.map((char)=>_createNumber(context, char)).toList(),
+          ),
+        ),
+        OutlinedButton.icon(
+          onPressed: () {},
+          style: ButtonStyle(
+              padding: WidgetStatePropertyAll(
+                  EdgeInsets.symmetric(horizontal: 10, vertical: 6)),
+              minimumSize: WidgetStatePropertyAll(Size(0, 0)),
+              shape: WidgetStatePropertyAll(RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8)))),
+          icon: Icon(Icons.copy),
+          label: Text(
+            'Tap to copy',
+            style: Theme.of(context).textTheme.labelSmall,
+          )
+        ),
+      ],
     );
   }
 

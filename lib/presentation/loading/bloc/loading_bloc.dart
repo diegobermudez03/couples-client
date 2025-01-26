@@ -2,7 +2,7 @@
 import 'package:couples_client_app/respositories/auth_repo.dart';
 import 'package:couples_client_app/services/secure_storage/secure_storage_service.dart';
 import 'package:couples_client_app/shared/global_variables/tokens_management.dart';
-import 'package:couples_client_app/shared/helpers/messages/status_messags.dart';
+import 'package:couples_client_app/shared/messages/status_messags.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoadingBloc extends Cubit<LoadingState>{
@@ -35,6 +35,8 @@ class LoadingBloc extends Cubit<LoadingState>{
       case statusCoupleCreated:
         emit(GoToMainPageState());
         break;
+      case statusPartnerWithoutNickname:
+        emit(GoToNicknamePageState());
       default:
         emit(GoToWelcomePage());
         break;
@@ -55,3 +57,5 @@ class GoToUserPageState extends LoadingState{}
 class GoToConnectCouplePageState extends LoadingState{}
 
 class GoToMainPageState extends LoadingState{}
+
+class GoToNicknamePageState extends LoadingState{}

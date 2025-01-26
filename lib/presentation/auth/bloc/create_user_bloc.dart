@@ -3,7 +3,7 @@ import 'package:couples_client_app/respositories/auth_repo.dart';
 import 'package:couples_client_app/services/localization_services/local_service.dart';
 import 'package:couples_client_app/services/secure_storage/secure_storage_service.dart';
 import 'package:couples_client_app/shared/global_variables/tokens_management.dart';
-import 'package:couples_client_app/shared/helpers/messages/error_messages.dart';
+import 'package:couples_client_app/shared/messages/error_messages.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CreateUserBloc extends Cubit<CreateUserState>{

@@ -2,6 +2,7 @@ import 'package:couples_client_app/core/navigation/router.dart';
 import 'package:couples_client_app/presentation/auth/bloc/create_user_bloc.dart';
 import 'package:couples_client_app/presentation/auth/widgets/user_field.dart';
 import 'package:couples_client_app/shared/dialogs/error_dialog.dart';
+import 'package:couples_client_app/shared/widgets/dialog_calendar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
@@ -151,7 +152,7 @@ class _CreateUserScreenState extends State<CreateUserScreen> {
                                           backgroundColor: WidgetStatePropertyAll(colorScheme.surfaceContainerHigh),
                                           shape: WidgetStatePropertyAll(
                                               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)))),
-                                      onPressed: loading ? null : () => _showDatePicker(context, l10n),
+                                      onPressed: loading ? null : () => _showDatePicker(context),
                                       child: Padding(
                                         padding: const EdgeInsets.all(10.0),
                                         child: Row(
@@ -296,7 +297,7 @@ class _CreateUserScreenState extends State<CreateUserScreen> {
     );
   }
 
-  void _showDatePicker(BuildContext context, AppLocalizations l10n) {
+  void _showDatePicker(BuildContext context) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -305,32 +306,14 @@ class _CreateUserScreenState extends State<CreateUserScreen> {
           content: SizedBox(
             height: 400,
             width: 500,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(25),
-              child: SfDateRangePicker(
-                showNavigationArrow: true,
-                view: DateRangePickerView.year,
-                headerStyle:
-                    DateRangePickerHeaderStyle(backgroundColor: Theme.of(context).colorScheme.secondaryContainer),
-                backgroundColor: Theme.of(context).colorScheme.onPrimary,
-                confirmText: l10n.ok,
-                cancelText: l10n.cancel,
-                minDate: DateTime(DateTime.now().year - 80),
-                maxDate: DateTime(DateTime.now().year - 14),
-                controller: dateController,
-                onSelectionChanged: (DateRangePickerSelectionChangedArgs args) {
-                  selectedDate = args.value;
-                },
-                showActionButtons: true,
-                onSubmit: (_) {
-                  Navigator.of(context).pop();
-                  setState(() {});
-                },
-                onCancel: () {
-                  Navigator.of(context).pop();
-                  setState(() {});
-                },
-              ),
+            child: DialogCalendarWidget(
+              controller: dateController, 
+              setState: ()=>setState(() {}), 
+              minDate: DateTime(DateTime.now().year - 80),
+              maxDate: DateTime(DateTime.now().year - 14),
+              onSelectionChanged:(DateRangePickerSelectionChangedArgs args) {
+                selectedDate = args.value;
+              },
             ),
           ),
         );

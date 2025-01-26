@@ -189,8 +189,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                         )),
                                   ),
                                   const Spacer(),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
+                                  Wrap(
+                                    direction: Axis.horizontal,
+                                    crossAxisAlignment: WrapCrossAlignment.center,
                                     children: [
                                       Text(i10n.dontHaveAnAccountYetQuestion),
                                       TextButton(

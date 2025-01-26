@@ -1,6 +1,6 @@
 import 'package:couples_client_app/core/navigation/router.dart';
 import 'package:couples_client_app/presentation/loading/bloc/loading_bloc.dart';
-import 'package:couples_client_app/shared/helpers/func_helpers.dart';
+import 'package:couples_client_app/shared/func_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -18,6 +18,7 @@ class LoadingScreen extends StatelessWidget {
             case GoToUserPageState _:context.go(routeLogUserPage); break;
             case GoToConnectCouplePageState _: context.go(routeConnectCouplePage);break;
             case GoToMainPageState _ : context.go(routeMainPage); break;
+            case GoToNicknamePageState _: context.go(routePartnerNicknamePage); break;
           }
         },
         child: Center(

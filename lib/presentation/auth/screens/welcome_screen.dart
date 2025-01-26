@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:couples_client_app/core/navigation/router.dart';
 import 'package:couples_client_app/presentation/auth/widgets/intro_page.dart';
 import 'package:couples_client_app/presentation/auth/widgets/or_divider.dart';
-import 'package:couples_client_app/shared/helpers/func_helpers.dart';
+import 'package:couples_client_app/shared/func_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';

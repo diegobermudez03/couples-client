@@ -1,7 +1,9 @@
 
+import 'package:couples_client_app/presentation/auth/bloc/create_code_bloc.dart';
 import 'package:couples_client_app/presentation/auth/bloc/create_user_bloc.dart';
 import 'package:couples_client_app/presentation/auth/bloc/login_bloc.dart';
 import 'package:couples_client_app/presentation/auth/bloc/register_bloc.dart';
+import 'package:couples_client_app/presentation/auth/bloc/submit_code_bloc.dart';
 import 'package:couples_client_app/presentation/loading/bloc/loading_bloc.dart';
 import 'package:couples_client_app/respositories/auth_repo.dart';
 import 'package:couples_client_app/respositories/impl/auth_repo_impl.dart';
@@ -14,7 +16,7 @@ import 'package:get_it/get_it.dart';
 final depIn = GetIt.instance; 
 const mobileUrl = "http://10.0.2.2:8081/v1";
 const webUrl = "http://localhost:8081/v1";
-const url = webUrl;
+const url = mobileUrl;
 
 Future<void> initDependencies() async{
   final tokens = TokensManagement();
@@ -33,4 +35,6 @@ Future<void> initDependencies() async{
   depIn.registerFactory<LoginBloc>(()=>LoginBloc(authRepo, secureStorage, tokens));
   depIn.registerFactory<RegisterBloc>(()=>RegisterBloc(authRepo, secureStorage, tokens));
   depIn.registerFactory<CreateUserBloc>(()=>CreateUserBloc(authRepo, depIn.get(), tokens, secureStorage));
+  depIn.registerFactory<SubmitCodeBloc>(()=>SubmitCodeBloc());
+  depIn.registerFactory<CreateCodeBloc>(()=>CreateCodeBloc()..checkExistingCode());
 }
