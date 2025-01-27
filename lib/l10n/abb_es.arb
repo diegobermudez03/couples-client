@@ -62,5 +62,7 @@
     "tooYoungYouMustBeAtLeast" : "Eres muy joven, debes tener al menos 14 años",
     "accountAlreadyHasUser" : "Tu cuenta ya tiene un usuario asociado",
     "unableToCreateUser" : "Error creando usuario",
-    "errorCreatingUser" : "Hubo un error creando el usuario, intenta nuevamente"
+    "errorCreatingUser" : "Hubo un error creando el usuario, intenta nuevamente",
+    "tapToCopy" : "Toca para copiar",
+    "copiedToClipboard" : "Copiado al portapapeles"
 }

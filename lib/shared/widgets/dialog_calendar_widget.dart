@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
 class DialogCalendarWidget extends StatelessWidget{
 
   final DateRangePickerController controller;
-  final void Function() setState;
   final void Function(DateRangePickerSelectionChangedArgs) onSelectionChanged;
+  final void Function(Object?) onSubmit;
+  final void Function() onCancel;
   final DateTime? minDate;
   final DateTime? maxDate;
 
   const DialogCalendarWidget({
     super.key,
     required this.controller,
-    required this.setState,
     required this.onSelectionChanged,
+    required this.onSubmit,
+    required this.onCancel,
     this.minDate,
     this.maxDate
   });
@@ -38,14 +39,8 @@ class DialogCalendarWidget extends StatelessWidget{
         controller: controller,
         onSelectionChanged: onSelectionChanged,
         showActionButtons: true,
-        onSubmit: (_) {
-          Navigator.of(context).pop();
-          setState();
-        },
-        onCancel: () {
-          Navigator.of(context).pop();
-          setState();
-        },
+        onSubmit: onSubmit,
+        onCancel: onCancel,
       ),
     );
   }

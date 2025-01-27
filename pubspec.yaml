@@ -63,6 +63,8 @@ dependencies:
   syncfusion_flutter_datepicker: ^28.1.41
   #for country codes
   ip_country_lookup: ^1.0.3
+  # for server sent events
+  eventflux: ^2.2.1
   # for i10
   flutter_localizations:
     sdk: flutter

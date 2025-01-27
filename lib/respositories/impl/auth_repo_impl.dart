@@ -1,9 +1,12 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:couples_client_app/core/errors/errors.dart';
 import 'package:couples_client_app/models/user_model.dart';
 import 'package:couples_client_app/respositories/auth_repo.dart';
 import 'package:http/http.dart' as http;
 import 'package:tuple/tuple.dart';
+import 'package:eventflux/eventflux.dart';
+
 
 class AuthRepoImpl implements AuthRepo{
   final String _url;
@@ -114,6 +117,55 @@ class AuthRepoImpl implements AuthRepo{
     }catch(error){
       return Tuple2(null, NetworkError());
     }
+  }
+  
+  @override
+  Stream<Tuple2<String, CustomError?>> getTempCoupleFromUser(String token) async*{
+    final StreamController<Tuple2<String, CustomError?>> controller = StreamController();
+    try{
+      bool first = true;
+      EventFlux.instance.connect(
+        EventFluxConnectionType.get,
+        '$_url/couples/temporal', 
+        header: {
+          'Accept' : 'text/event-stream',
+          "token" : token
+        },
+        onSuccessCallback: (response){
+          response?.stream?.listen((data){
+            controller.add(Tuple2(data.data, null));
+            if (!first){
+              EventFlux.instance.disconnect();
+            }
+            if (first) first = false;
+          });
+        },
+        onError: (oops){
+          return Tuple2(null, CustomError(oops.message!));
+        },
+        autoReconnect: false,
+        /*reconnectConfig: ReconnectConfig(
+          mode: ReconnectMode.linear,
+          interval: const Duration(seconds: 5),
+          maxAttempts: 5
+        )*/
+      );
+    }catch(error){
+      controller.add(Tuple2("", NetworkError()));
+    }
+    yield* controller.stream;
+  }
+  
+  @override
+  Future<Tuple2<Stream<String>, CustomError?>> postTempCouple(String token, DateTime startDate) {
+    // TODO: implement postTempCouple
+    throw UnimplementedError();
+  }
+  
+  @override
+  Future<Tuple2<String, CustomError?>> submitCoupleCode(String token, int code) {
+    // TODO: implement submitCoupleCode
+    throw UnimplementedError();
   }
   
 }

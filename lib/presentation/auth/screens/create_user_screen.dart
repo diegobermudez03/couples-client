@@ -308,9 +308,16 @@ class _CreateUserScreenState extends State<CreateUserScreen> {
             width: 500,
             child: DialogCalendarWidget(
               controller: dateController, 
-              setState: ()=>setState(() {}), 
               minDate: DateTime(DateTime.now().year - 80),
               maxDate: DateTime(DateTime.now().year - 14),
+              onSubmit: (_) {
+                Navigator.of(context).pop();
+                setState((){});
+              },
+              onCancel: (){
+                Navigator.of(context).pop();
+                setState((){});
+              },
               onSelectionChanged:(DateRangePickerSelectionChangedArgs args) {
                 selectedDate = args.value;
               },

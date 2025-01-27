@@ -10,9 +10,8 @@ class CreateUserBloc extends Cubit<CreateUserState>{
   final AuthRepo _repo;
   final LocalizationService _localService;
   final TokensManagement _tokens;
-  final SecureStorageService _storage;
 
-  CreateUserBloc(this._repo, this._localService, this._tokens, this._storage):super(CreateUserInitialState());
+  CreateUserBloc(this._repo, this._localService, this._tokens):super(CreateUserInitialState());
 
   void createUser(String firstName, String lastName, DateTime? birthDate, bool? male) async{
     emit(CreateUserLoadingState());
@@ -25,9 +24,10 @@ class CreateUserBloc extends Cubit<CreateUserState>{
       _localService.getCountry(),
       _localService.getLanguage()
     ]);
+    final refreshToken = await _tokens.getRefreshToken();
     final token = await _repo.createUser(
       UserModel(firstName, lastName, enumGender, codes[0], codes[1], birthDate),
-      _tokens.refreshToken
+      refreshToken
     );
     if(token.item2 != null){
       switch(token.item2!.error){
@@ -37,16 +37,14 @@ class CreateUserBloc extends Cubit<CreateUserState>{
       }
       return;
     }
-    _tokens.refreshToken = token.item1;
-    _storage.writeValue(refreshTokenKey, token.item1);
+    _tokens.setRefreshToken(token.item1);
     emit(CreateUserSuccessState());
   }
 
   void logout() async{
     emit(CreateUserLogoutState());
-    _repo.logoutSession(_tokens.refreshToken);
-    _storage.deleteValue(refreshTokenKey);
-    _tokens.refreshToken = null;
+    _repo.logoutSession(await _tokens.getRefreshToken());
+    _tokens.deleteRefreshToken();
   }
 }
 

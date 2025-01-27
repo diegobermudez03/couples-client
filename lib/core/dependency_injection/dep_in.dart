@@ -16,25 +16,25 @@ import 'package:get_it/get_it.dart';
 final depIn = GetIt.instance; 
 const mobileUrl = "http://10.0.2.2:8081/v1";
 const webUrl = "http://localhost:8081/v1";
-const url = mobileUrl;
+const url = webUrl;
 
 Future<void> initDependencies() async{
-  final tokens = TokensManagement();
 
   // services
   final prefServices = await PreferencesServiceImpl.getPreferences();
   depIn.registerSingleton<PreferencesService>(prefServices);
   depIn.registerSingleton<LocalizationService>(LocalizationServiceImpl(prefServices));
-  final SecureStorageService secureStorage = SecureStorageMock();
+  final SecureStorageService secureStorage = SecureStorageServImpl();
+  final tokens = TokensManagement(secureStorage);
 
   //repositories
   final AuthRepo authRepo = AuthRepoImpl(url);
 
   //providers
-  depIn.registerFactory<LoadingBloc>(()=>LoadingBloc(authRepo, secureStorage, tokens)..checkInitialPage());
-  depIn.registerFactory<LoginBloc>(()=>LoginBloc(authRepo, secureStorage, tokens));
-  depIn.registerFactory<RegisterBloc>(()=>RegisterBloc(authRepo, secureStorage, tokens));
-  depIn.registerFactory<CreateUserBloc>(()=>CreateUserBloc(authRepo, depIn.get(), tokens, secureStorage));
+  depIn.registerFactory<LoadingBloc>(()=>LoadingBloc(authRepo, tokens)..checkInitialPage());
+  depIn.registerFactory<LoginBloc>(()=>LoginBloc(authRepo, tokens));
+  depIn.registerFactory<RegisterBloc>(()=>RegisterBloc(authRepo, tokens));
+  depIn.registerFactory<CreateUserBloc>(()=>CreateUserBloc(authRepo, depIn.get(), tokens));
   depIn.registerFactory<SubmitCodeBloc>(()=>SubmitCodeBloc());
-  depIn.registerFactory<CreateCodeBloc>(()=>CreateCodeBloc()..checkExistingCode());
+  depIn.registerFactory<CreateCodeBloc>(()=>CreateCodeBloc(authRepo, tokens)..checkExistingCode());
 }

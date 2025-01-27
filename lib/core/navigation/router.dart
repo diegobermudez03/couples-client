@@ -82,6 +82,5 @@ final router = GoRouter(routes: [
   GoRoute(
     path: routePartnerNicknamePage,
     builder: (_, __) => NicknameScreen(),
-    pageBuilder: GoTransitions.fadeUpwards.call,
-  ),
+    pageBuilder: GoTransitions.slide.toLeft.withSettings(duration: const Duration(milliseconds: 300)).call),
 ]);

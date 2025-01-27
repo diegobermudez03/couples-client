@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
 class Code extends StatelessWidget{
   final String code;
@@ -20,7 +22,7 @@ class Code extends StatelessWidget{
           ),
         ),
         OutlinedButton.icon(
-          onPressed: () {},
+          onPressed: () => _copyToClipboard(code, context),
           style: ButtonStyle(
               padding: WidgetStatePropertyAll(
                   EdgeInsets.symmetric(horizontal: 10, vertical: 6)),
@@ -29,12 +31,24 @@ class Code extends StatelessWidget{
                   borderRadius: BorderRadius.circular(8)))),
           icon: Icon(Icons.copy),
           label: Text(
-            'Tap to copy',
+            AppLocalizations.of(context)!.tapToCopy,
             style: Theme.of(context).textTheme.labelSmall,
           )
         ),
       ],
     );
+  }
+
+  void _copyToClipboard(String code, BuildContext context){
+    Clipboard.setData(ClipboardData(text: code)).then((_) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            AppLocalizations.of(context)!.copiedToClipboard,
+          )
+          )
+        );
+    });
   }
 
   Widget _createNumber(BuildContext context,String char){

@@ -6,9 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RegisterBloc extends Cubit<RegisterState>{
   final AuthRepo _repo;
-  final SecureStorageService _storage;
   final TokensManagement _tokens;
-  RegisterBloc(this._repo, this._storage, this._tokens): super(RegisterInitialState());
+  RegisterBloc(this._repo, this._tokens): super(RegisterInitialState());
 
   void register(String email, String password, String passwordVerification, String device, String os) async{
     emit(RegisterCheckingState());
@@ -36,8 +35,7 @@ class RegisterBloc extends Cubit<RegisterState>{
       }
       return;
     }
-    _storage.writeValue(refreshTokenKey, token.item1);
-    _tokens.refreshToken = token.item1;
+    _tokens.setRefreshToken(token.item1);
     emit(RegisterSuccessState());
   }
 }

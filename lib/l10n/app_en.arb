@@ -175,5 +175,9 @@
     "unableToCreateUser" : "Unable to create user",
     "@unableToCreateUser" :{},
     "errorCreatingUser" : "There was an error, please try again",
-    "@errorCreatingUser" :{}
-}
+    "@errorCreatingUser" :{},
+    "tapToCopy" : "Tap to copy",
+    "@tapToCopy" : {},
+    "copiedToClipboard" : "Copied to Clipboard",
+    "@copiedToClipboard" :{}
+} 
