@@ -23,6 +23,7 @@ class LoadingBloc extends Cubit<LoadingState>{
       emit(GoToWelcomePage());
       return;
     }
+    print(status.item1);
     switch(status.item1){
       case statusNoUserCreated:
         emit(GoToUserPageState());

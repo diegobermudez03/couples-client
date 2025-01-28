@@ -15,7 +15,11 @@ class SecureStorageServImpl implements SecureStorageService{
 
   @override
   Future<String?> readValue(String key) async{
-    return await storage.read(key: key);
+    try{
+      return await storage.read(key: key);
+    }catch(error){
+      return null;
+    }
   } 
 
   @override

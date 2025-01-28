@@ -35,6 +35,6 @@ Future<void> initDependencies() async{
   depIn.registerFactory<LoginBloc>(()=>LoginBloc(authRepo, tokens));
   depIn.registerFactory<RegisterBloc>(()=>RegisterBloc(authRepo, tokens));
   depIn.registerFactory<CreateUserBloc>(()=>CreateUserBloc(authRepo, depIn.get(), tokens));
-  depIn.registerFactory<SubmitCodeBloc>(()=>SubmitCodeBloc());
+  depIn.registerFactory<SubmitCodeBloc>(()=>SubmitCodeBloc(authRepo, tokens));
   depIn.registerFactory<CreateCodeBloc>(()=>CreateCodeBloc(authRepo, tokens)..checkExistingCode());
 }

@@ -1,42 +1,70 @@
-import 'dart:convert';
-
+import 'dart:async';
+import 'package:couples_client_app/core/utils/functions.dart';
 import 'package:couples_client_app/models/temp_couple.dart';
 import 'package:couples_client_app/respositories/auth_repo.dart';
 import 'package:couples_client_app/shared/global_variables/tokens_management.dart';
+import 'package:couples_client_app/shared/messages/error_messages.dart';
 import 'package:couples_client_app/shared/messages/status_messags.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CreateCodeBloc extends Cubit<CreateCodeState>{
   final AuthRepo _repo;
   final TokensManagement _tokens;
+  StreamSubscription? _streamSubscription;
   CreateCodeBloc(this._repo, this._tokens):super(CreateCodeCheckingState());
 
   void checkExistingCode()async{
-    await Future.delayed(Duration(seconds: 1));
     final refreshToken = await _tokens.getRefreshToken();
-    final stream = _repo.getTempCoupleFromUser(refreshToken!);
-    stream.forEach((data){
-      if(data.item2 != null){
-        emit(CreateCodeNotExistsState());
-      }
-      if(data.item1.contains(vinculatedMessage)){
-        print("CONNECTED");
-        emit(CreateCodeConnectedState());
-      }else{
-        try{
-          final tempCouple = TempCouple.fromJson(jsonDecode(data.item1));
-          emit(CreateCodeExistsState(tempCouple));
-        }catch(error){}
-      }
-      //jsonDecode(data);
-    });
-    emit(CreateCodeNotExistsState());
+    final response = await _repo.getTempCoupleFromUser(refreshToken!);
+    if(response.item2 != null){
+      emit(CreateCodeNotExistsState());
+      return;
+    }
+    emit(CreateCodeExistsState(response.item1!));
+    _connectSSE(refreshToken);
   }
 
   void generateCode(DateTime startDate) async{
-    //emit(CreateCodeCreatingState());
-    await Future.delayed(Duration(seconds: 1));
-    emit(CreateCodeExistsState(TempCouple("8541", startDate)));
+    final refreshToken = await _tokens.getRefreshToken();
+    final response = await _repo.postTempCouple(refreshToken!, dateToUnix(startDate));
+    if(response.item2 != null){
+      switch(response.item2!.error){
+        case errorNoActiveUser: emit(CreateCodeFailedState(CreateCodeErrorMessages.noActiveUser));break;
+        case errorCantCreateNewCouple: emit(CreateCodeFailedState(CreateCodeErrorMessages.alreadyHasCouple)); break;
+        default : emit(CreateCodeFailedState(CreateCodeErrorMessages.generalError)); break;
+      }
+      return;
+    }
+    emit(CreateCodeExistsState(TempCouple(response.item1.toString().trim(), startDate)));
+    _connectSSE(refreshToken);
+  }
+
+  void _connectSSE(String token) async{
+    _streamSubscription?.cancel();
+    await _repo.disconnectSSE();
+    final stream = _repo.connectSSECodeChannel(token);
+    //in case there was a previous active connection we disconnect it
+    _streamSubscription = stream.listen((data){
+      print("received data ${data.item1}");
+      if(data.item2 != null){
+        _streamSubscription?.cancel();
+        _streamSubscription = null;
+        _repo.disconnectSSE();
+      }else if(data.item1.trim() == partnerVinculatedMessage){
+        emit(CreateCodeConnectedState());
+        _streamSubscription?.cancel();
+        _streamSubscription = null;
+        _repo.disconnectSSE();
+      }
+    });
+  }
+
+  @override
+  Future<void> close() {
+    _streamSubscription?.cancel();
+    _streamSubscription = null;
+    _repo.disconnectSSE();
+    return super.close();
   }
 }
 
@@ -50,6 +78,16 @@ class CreateCodeExistsState extends CreateCodeState{
   CreateCodeExistsState(this.tempCouple);
 }
 
+class CreateCodeFailedState extends CreateCodeState{
+  final CreateCodeErrorMessages message;
+  CreateCodeFailedState(this.message);
+}
+
 class CreateCodeNotExistsState extends CreateCodeState{}
 
 class CreateCodeConnectedState extends CreateCodeState{}
+
+
+enum CreateCodeErrorMessages{
+  generalError, noActiveUser, alreadyHasCouple
+}

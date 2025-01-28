@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:couples_client_app/core/errors/errors.dart';
+import 'package:couples_client_app/models/temp_couple.dart';
 import 'package:couples_client_app/models/user_model.dart';
 import 'package:couples_client_app/respositories/auth_repo.dart';
+import 'package:couples_client_app/shared/messages/status_messags.dart';
 import 'package:http/http.dart' as http;
 import 'package:tuple/tuple.dart';
 import 'package:eventflux/eventflux.dart';
@@ -120,35 +122,115 @@ class AuthRepoImpl implements AuthRepo{
   }
   
   @override
-  Stream<Tuple2<String, CustomError?>> getTempCoupleFromUser(String token) async*{
+  Future<Tuple2<TempCouple?, CustomError?>> getTempCoupleFromUser(String token) async{
+    try{
+      final url = Uri.parse("$_url/couples/temporal");
+      final response = await http.get(
+        url,
+        headers: {
+          "token" : token
+        }
+      );
+      final body = jsonDecode(response.body);
+      if(response.statusCode >= 400){
+        return Tuple2(null, CustomError(body["error"]));
+      }
+      final tempCouple = TempCouple.fromJson(body);
+      return Tuple2(tempCouple, null);
+
+    }catch(error){
+      return Tuple2(null, NetworkError());
+    }
+  }
+  
+  @override
+  Future<Tuple2<int, CustomError?>> postTempCouple(String token, int startDate) async{
+    try{
+      final url = Uri.parse("$_url/couples/temporal");
+      final response = await http.post(
+        url,
+        headers: {
+          "token" : token
+        },
+        body: jsonEncode({
+          "startDate" : startDate
+        })
+      );
+      final body = jsonDecode(response.body);
+      if(response.statusCode >= 400){
+        return Tuple2(0, CustomError(body["error"]));
+      }
+      return Tuple2(body["code"], null);
+    }catch(error){
+      return Tuple2(0, NetworkError());
+    }
+  }
+  
+  @override
+  Future<Tuple2<String, CustomError?>> submitCoupleCode(String token, int code) async{
+    try{
+      final url = Uri.parse("$_url/couples/connect");
+      final response = await http.post(
+        url,
+        headers: {
+          "token": token 
+        },
+        body: jsonEncode({
+          "code" : code
+        }),
+      );
+      final body = jsonDecode(response.body);
+      if(response.statusCode >= 400){
+        return Tuple2("", CustomError(body["error"]));
+      }
+      return Tuple2(body["accessToken"], null);
+    }catch(error){
+      return Tuple2("", NetworkError());
+    }
+  }
+
+  @override
+  Stream<Tuple2<String, CustomError?>> connectSSECodeChannel(String token) async*{
+    //in case there was a previous opened connection
     final StreamController<Tuple2<String, CustomError?>> controller = StreamController();
     try{
-      bool first = true;
       EventFlux.instance.connect(
         EventFluxConnectionType.get,
-        '$_url/couples/temporal', 
+        '$_url/couples/temporal/notification', 
         header: {
           'Accept' : 'text/event-stream',
           "token" : token
         },
+        onConnectionClose: (){
+          /*print("closing streaming from onConnectioNClose");
+          controller.close();*/
+        },
         onSuccessCallback: (response){
           response?.stream?.listen((data){
-            controller.add(Tuple2(data.data, null));
-            if (!first){
+            print("data received ${data.data} at ${DateTime.now()}");
+            if(data.event.trim() == "close"){
+               print("closing streaming from close message");
               EventFlux.instance.disconnect();
+              controller.close();
             }
-            if (first) first = false;
+            if(data.data == connectedMessage){
+            }
+            else{
+              controller.add(Tuple2(data.data, null));
+            }
           });
         },
         onError: (oops){
-          return Tuple2(null, CustomError(oops.message!));
+          controller.add(Tuple2("", CustomError(oops.message!)));
+           print("closing streaming from error");
+          controller.close();
+          EventFlux.instance.disconnect();
         },
-        autoReconnect: false,
-        /*reconnectConfig: ReconnectConfig(
+        autoReconnect: true,
+        reconnectConfig: ReconnectConfig(
           mode: ReconnectMode.linear,
-          interval: const Duration(seconds: 5),
-          maxAttempts: 5
-        )*/
+          maxAttempts: 5,
+        )
       );
     }catch(error){
       controller.add(Tuple2("", NetworkError()));
@@ -157,15 +239,9 @@ class AuthRepoImpl implements AuthRepo{
   }
   
   @override
-  Future<Tuple2<Stream<String>, CustomError?>> postTempCouple(String token, DateTime startDate) {
-    // TODO: implement postTempCouple
-    throw UnimplementedError();
-  }
-  
-  @override
-  Future<Tuple2<String, CustomError?>> submitCoupleCode(String token, int code) {
-    // TODO: implement submitCoupleCode
-    throw UnimplementedError();
+  Future<void> disconnectSSE() async{
+    await EventFlux.instance.disconnect();
+    return;
   }
   
 }

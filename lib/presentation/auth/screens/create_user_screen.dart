@@ -243,16 +243,23 @@ class _CreateUserScreenState extends State<CreateUserScreen> {
                                           onPressed: () => bloc.logout(),
                                           style: ButtonStyle(
                                               shape: const WidgetStatePropertyAll(StadiumBorder()),
-                                              backgroundColor: WidgetStatePropertyAll(colorScheme.tertiaryFixedDim)),
+                                              backgroundColor: WidgetStatePropertyAll(colorScheme.errorContainer)),
                                           child: Row(
                                             children: [
-                                              const RiveAnimatedIcon(
+                                              RiveAnimatedIcon(
+                                                onTap: ()=> bloc.logout(),
                                                 loopAnimation: true,
                                                 height: 35,
                                                 width: 35,
+                                                color:colorScheme.onErrorContainer,
                                                 riveIcon: RiveIcon.backward,
                                               ),
-                                              Text(l10n.exitLogout)
+                                              Text(
+                                                l10n.exitLogout, 
+                                                style: textTheme.labelLarge?.copyWith(
+                                                  color: colorScheme.onErrorContainer
+                                                ),
+                                              )
                                             ],
                                           )),
                                       const Spacer(
@@ -267,11 +274,18 @@ class _CreateUserScreenState extends State<CreateUserScreen> {
                                             color: colorScheme.onPrimaryFixed,
                                           ) : Row(
                                             children: [
-                                              Text(l10n.next),
-                                              const RiveAnimatedIcon(
+                                              Text(
+                                                l10n.next,
+                                                style: textTheme.labelLarge?.copyWith(
+                                                  color: colorScheme.onPrimaryContainer
+                                                ),
+                                              ),
+                                              RiveAnimatedIcon(
+                                                onTap: ()=>bloc.createUser(firstNameController.text, lastNameController.text, selectedDate, male),
                                                 loopAnimation: true,
                                                 height: 35,
                                                 width: 35,
+                                                color: colorScheme.onPrimaryContainer,
                                                 riveIcon: RiveIcon.forward,
                                               ),
                                             ],

@@ -2,6 +2,7 @@ import 'package:couples_client_app/services/secure_storage/secure_storage_servic
 
 class TokensManagement {
   String? _refreshToken;
+  String? _accessToken;
   final SecureStorageService _storage;
 
   TokensManagement(this._storage);
@@ -17,8 +18,16 @@ class TokensManagement {
   }
 
   Future<String?> getRefreshToken() async{
-    final token = await _storage.readValue(refreshTokenKey);
-    _refreshToken = token;
+    if(_refreshToken == null){
+      final token = await _storage.readValue(refreshTokenKey);
+      _refreshToken = token;
+    }
     return _refreshToken;
   }
+
+  void setAccessToken(String token){
+    _accessToken = token;
+  }
+  
+  String? getAccessToken() => _accessToken;
 }
