@@ -64,5 +64,24 @@
     "unableToCreateUser" : "Error creando usuario",
     "errorCreatingUser" : "Hubo un error creando el usuario, intenta nuevamente",
     "tapToCopy" : "Toca para copiar",
-    "copiedToClipboard" : "Copiado al portapapeles"
+
+    "copiedToClipboard" : "Copiado al portapapeles",
+
+    "timeToPairUpWithYourPartner" : "Momento de emparejarte!",
+    "noActiveUserForCouple" : "No hay un usuario activo, no se puede generar el codigo",
+    "genericErrorCreatingCode" : "Hubo un error, por favor intenta de nuevo",
+    "errorCreatingVinculationCode" : "Error creando codigo de vinculación",
+    "inviteYourPartner": "Invita a tu pareja",
+    "generateCodeBySelectingTheDateYouBecameACouple" :"GENERA EL CODIGO seleccionando la fecha en la que se volvieron novios",
+    "ifYouModifyTheDateTheCodeWillBeUpdated" : "Si modificas la fecha el codigo sera actualizado",
+    "selectYourAnniversary" : "Selecciona tu aniversario",
+    "anniversary" : "Aniversario",
+    "theCodeMustOnlyContainDigits": "El codigo solo debe contener digitos",
+    "theCodeDoesntExist" : "El codigo no existe",
+    "youCantVinculateWithYourself" : "No te puedes vincular contigo mismo",
+    "genericErrorVinculating" : "THubo un error, por favor intenta de nuevo",
+    "errorVinculating" : "Error con la vinculacion",
+    "enterYourPartnersCode" : "Ingresa el codigo de tu pareja",
+    "vinculate" : "Vincular",
+    "orYouCanAlso" : "O tambien puedes"
 }

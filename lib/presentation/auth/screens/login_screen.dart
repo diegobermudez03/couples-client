@@ -16,21 +16,38 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin{
   late final TextEditingController emailController;
   late final TextEditingController passwordController;
+  late final AnimationController _animationController;
+  late final Animation<double> _expandedAnimation;
+
 
   @override
   void initState() {
     emailController = TextEditingController();
     passwordController = TextEditingController();
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 500),
+    );
+    _expandedAnimation = Tween<double>(begin:1, end:32).animate(
+      CurvedAnimation(
+        parent: _animationController, 
+        curve: Curves.easeOut
+      )
+    );
     super.initState();
+    _animationController.forward().whenCompleteOrCancel((){
+
+    });
   }
 
   @override
   void dispose() {
     emailController.dispose();
     passwordController.dispose();
+    _animationController.dispose();
     super.dispose();
   }
 
@@ -97,7 +114,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     return Column(
                       children: [
                         Expanded(
-                          flex: isKeyboardOpen ? 0 : 3,
+                          flex: isKeyboardOpen ? 0 : 12,
                           child: AnimatedSwitcher(
                             duration: const Duration(milliseconds: 1000),
                             child: isKeyboardOpen ? const SizedBox() : Padding(
@@ -127,86 +144,92 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),),
                         ),
-                        Expanded(
-                          flex: 9,
+                        AnimatedBuilder(
+                          animation: _animationController,
                           child: Container(
-                            decoration: BoxDecoration(
-                                color: colorScheme.onPrimary,
-                                borderRadius:
-                                    const BorderRadius.only(topLeft: Radius.circular(45), topRight: Radius.circular(45)),),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                              child: Column(
-                                children: [
-                                  const Spacer(
-                                    flex: 6,
-                                  ),
-                                  AuthField(
-                                    icon: const Icon(Ionicons.person),
-                                    labelText: i10n.emailLabel,
-                                    hintText: i10n.emailHintText,
-                                    editable: !isLoading,
-                                    controller: emailController,
-                                  ),
-                                  const Spacer(),
-                                  AuthField(
-                                      icon: const Icon(Ionicons.lock_closed),
-                                      labelText: i10n.passwordLabel,
-                                      hintText: i10n.passwordHintText,
-                                      password: true,
-                                      editable: !isLoading,
-                                      controller: passwordController),
-                                  const Spacer(),
-                                  OrDivider(orText: i10n.or),
-                                  const Spacer(),
-                                  GoogleAuthButton(
-                                    text: i10n.loginWithGoogle, 
-                                    handler: (){}
-                                  ),
-                                  const Spacer(
-                                    flex: 7,
-                                  ),
-                                  SizedBox(
-                                    width: double.infinity,
-                                    child: TextButton(
-                                        onPressed: !isLoading
-                                            ? () => _loginHandler(context, bloc)
-                                            : null,
-                                        style: ButtonStyle(
-                                            shape: WidgetStatePropertyAll(
-                                                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20))),
-                                            backgroundColor: WidgetStatePropertyAll(colorScheme.secondary)),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: !isLoading
-                                              ? Text(
-                                                  i10n.login,
-                                                  style: textTheme.titleLarge!.copyWith(color: colorScheme.onSecondary),
-                                                )
-                                              : CircularProgressIndicator(
-                                                  color: colorScheme.onSecondary,
-                                                ),
-                                        )),
-                                  ),
-                                  const Spacer(),
-                                  Wrap(
-                                    direction: Axis.horizontal,
-                                    crossAxisAlignment: WrapCrossAlignment.center,
+                                decoration: BoxDecoration(
+                                    color: colorScheme.onPrimary,
+                                    borderRadius:
+                                        const BorderRadius.only(topLeft: Radius.circular(45), topRight: Radius.circular(45)),),
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                                  child: Column(
                                     children: [
-                                      Text(i10n.dontHaveAnAccountYetQuestion),
-                                      TextButton(
-                                        onPressed: ()=>context.pushReplacement(routeRegisterPage), 
-                                        child: Text(i10n.registerHere)
-                                      )
+                                      const Spacer(
+                                        flex: 6,
+                                      ),
+                                      AuthField(
+                                        icon: const Icon(Ionicons.person),
+                                        labelText: i10n.emailLabel,
+                                        hintText: i10n.emailHintText,
+                                        editable: !isLoading,
+                                        controller: emailController,
+                                      ),
+                                      const Spacer(),
+                                      AuthField(
+                                          icon: const Icon(Ionicons.lock_closed),
+                                          labelText: i10n.passwordLabel,
+                                          hintText: i10n.passwordHintText,
+                                          password: true,
+                                          editable: !isLoading,
+                                          controller: passwordController),
+                                      const Spacer(),
+                                      OrDivider(orText: i10n.or),
+                                      const Spacer(),
+                                      GoogleAuthButton(
+                                        text: i10n.loginWithGoogle, 
+                                        handler: (){}
+                                      ),
+                                      const Spacer(
+                                        flex: 7,
+                                      ),
+                                      SizedBox(
+                                        width: double.infinity,
+                                        child: TextButton(
+                                            onPressed: !isLoading
+                                                ? () => _loginHandler(context, bloc)
+                                                : null,
+                                            style: ButtonStyle(
+                                                shape: WidgetStatePropertyAll(
+                                                    RoundedRectangleBorder(borderRadius: BorderRadius.circular(20))),
+                                                backgroundColor: WidgetStatePropertyAll(colorScheme.secondary)),
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(8.0),
+                                              child: !isLoading
+                                                  ? Text(
+                                                      i10n.login,
+                                                      style: textTheme.titleLarge!.copyWith(color: colorScheme.onSecondary),
+                                                    )
+                                                  : CircularProgressIndicator(
+                                                      color: colorScheme.onSecondary,
+                                                    ),
+                                            )),
+                                      ),
+                                      const Spacer(),
+                                      Wrap(
+                                        direction: Axis.horizontal,
+                                        crossAxisAlignment: WrapCrossAlignment.center,
+                                        children: [
+                                          Text(i10n.dontHaveAnAccountYetQuestion),
+                                          TextButton(
+                                            onPressed: ()=>context.pushReplacement(routeRegisterPage), 
+                                            child: Text(i10n.registerHere)
+                                          )
+                                        ],
+                                      ),
+                                      const Spacer(
+                                        flex: 4,
+                                      ),
                                     ],
                                   ),
-                                  const Spacer(
-                                    flex: 4,
-                                  ),
-                                ],
+                                ),
                               ),
-                            ),
-                          ),
+                          builder: (context, child) {
+                            return Expanded(
+                              flex: _expandedAnimation.value.toInt(),
+                              child: child!,
+                            );
+                          }
                         )
                       ],
                     );

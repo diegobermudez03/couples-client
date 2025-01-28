@@ -18,7 +18,6 @@ class LoadingScreen extends StatelessWidget {
             case GoToUserPageState _:context.go(routeLogUserPage); break;
             case GoToConnectCouplePageState _: context.go(routeConnectCouplePage);break;
             case GoToMainPageState _ : context.go(routeMainPage); break;
-            case GoToNicknamePageState _: context.go(routePartnerNicknamePage); break;
           }
         },
         child: Center(

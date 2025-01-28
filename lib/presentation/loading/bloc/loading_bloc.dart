@@ -34,8 +34,6 @@ class LoadingBloc extends Cubit<LoadingState>{
       case statusCoupleCreated:
         emit(GoToMainPageState());
         break;
-      case statusPartnerWithoutNickname:
-        emit(GoToNicknamePageState());
       default:
         emit(GoToWelcomePage());
         break;
@@ -57,4 +55,3 @@ class GoToConnectCouplePageState extends LoadingState{}
 
 class GoToMainPageState extends LoadingState{}
 
-class GoToNicknamePageState extends LoadingState{}

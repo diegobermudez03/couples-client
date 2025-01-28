@@ -10,6 +10,7 @@ class SubmitCodeBloc extends Cubit<SubmitCodeState>{
 
   void submitCode(String code) async{
     emit(SubmitCodeLoading());
+    await Future.delayed(Duration(seconds: 2));
     final refreshToken = await _tokens.getRefreshToken();
     int codeParsed;
     try{

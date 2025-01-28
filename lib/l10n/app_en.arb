@@ -182,7 +182,7 @@
     "@copiedToClipboard" :{},
 
 
-    "timeToPairUpWithYourPartner" : "Time to pair up with your partner",
+    "timeToPairUpWithYourPartner" : "Time to pair up with your partner!",
     "@timeToPairUpWithYourPartner" :{},
     "noActiveUserForCouple" : "There's no active user, cant create code",
     "@noActiveUserForCouple"  : {},

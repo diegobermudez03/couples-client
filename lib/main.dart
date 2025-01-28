@@ -33,7 +33,11 @@ class MyApp extends StatelessWidget {
       title: 'Couples app',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0x87ceeb)),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color.fromARGB(255, 112, 214, 255),
+          brightness: Brightness.light,
+          dynamicSchemeVariant: DynamicSchemeVariant.vibrant
+        ),
         textTheme: GoogleFonts.comfortaaTextTheme(Theme.of(context).textTheme),
         useMaterial3: true,
       ),

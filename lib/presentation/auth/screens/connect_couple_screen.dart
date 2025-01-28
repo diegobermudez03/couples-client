@@ -283,7 +283,20 @@ class _ConnectCoupleScreenState extends State<ConnectCoupleScreen> {
                                               Row(
                                                 children: [
                                                   const Spacer(),
-                                                  Expanded(
+                                                  AnimatedElevatedButton(
+                                                    icon: const FaIcon(FontAwesomeIcons.heart),
+                                                    label: Padding(
+                                                          padding: const EdgeInsets.symmetric(vertical: 15),
+                                                          child: state is SubmitCodeLoading
+                                                            ? CircularProgressIndicator(color: colorScheme.onTertiary,)
+                                                            : Text(l10n.vinculate, style: textTheme.labelLarge?.copyWith(
+                                                              color: colorScheme.onTertiary,
+                                                              fontWeight: FontWeight.bold
+                                                            ),),
+                                                        ),
+                                                    onPressed: allowSubmit ? () => bloc.submitCode(codeController.text) : (){},
+                                                  )
+                                                 /* Expanded(
                                                     flex: 5,
                                                     child: ElevatedButton.icon(
                                                         onPressed:
@@ -292,7 +305,7 @@ class _ConnectCoupleScreenState extends State<ConnectCoupleScreen> {
                                                         label: Padding(
                                                           padding: const EdgeInsets.symmetric(vertical: 15),
                                                           child: state is SubmitCodeLoading
-                                                            ? const CircularProgressIndicator()
+                                                            ? CircularProgressIndicator(color: colorScheme.onTertiary,)
                                                             : Text(l10n.vinculate, style: textTheme.labelLarge?.copyWith(
                                                               color: colorScheme.onTertiary,
                                                               fontWeight: FontWeight.bold
@@ -312,7 +325,7 @@ class _ConnectCoupleScreenState extends State<ConnectCoupleScreen> {
                                                             
                                                           ),
                                                     ),
-                                                  ),
+                                                  ),*/,
                                                   const Spacer(),
                                                 ],
                                               ),
@@ -337,7 +350,7 @@ class _ConnectCoupleScreenState extends State<ConnectCoupleScreen> {
                               child: Container(
                                 padding: const EdgeInsets.all(22),
                                 decoration: BoxDecoration(
-                                  color: Color.lerp(colorScheme.primary, colorScheme.tertiary, 0.9),
+                                  color: Color.lerp(colorScheme.primary, colorScheme.secondary, 0.75),
                                   borderRadius: BorderRadius.circular(40),
                                 ),
                                 child: Text(
@@ -399,6 +412,78 @@ class _ConnectCoupleScreenState extends State<ConnectCoupleScreen> {
               onCancel: () {
                 Navigator.of(context).pop();
               },
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+
+
+class AnimatedElevatedButton extends StatefulWidget {
+  final VoidCallback onPressed;
+  final Widget label;
+  final Widget icon;
+
+  const AnimatedElevatedButton({
+    super.key,
+    required this.onPressed,
+    required this.label,
+    required this.icon,
+  });
+
+  @override
+  State<AnimatedElevatedButton> createState() => _AnimatedElevatedButtonState();
+}
+
+class _AnimatedElevatedButtonState extends State<AnimatedElevatedButton>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _animation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: const Duration(milliseconds: 500),
+      vsync: this,
+    );
+    _animation = Tween<double>(begin: 0, end: -10).animate(CurvedAnimation(
+      parent: _controller,
+      curve: Curves.easeOut,
+      reverseCurve: Curves.easeIn,
+    ));
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  Future<void> _handlePress() async {
+    // Ejecutar la animación primero
+    await _controller.forward();
+    await _controller.reverse();
+    // Luego llamar al callback original
+    widget.onPressed();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _animation,
+      builder: (context, child) {
+        return Transform.translate(
+          offset: Offset(0, _animation.value),
+          child: ElevatedButton.icon(
+            onPressed: _handlePress,
+            icon: widget.icon,
+            label: widget.label,
+            style: ElevatedButton.styleFrom(
+              padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
             ),
           ),
         );
