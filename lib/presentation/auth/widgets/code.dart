@@ -5,7 +5,7 @@ import 'package:flutter_gen/gen_l10n/app_localization.dart';
 class Code extends StatelessWidget{
   final String code;
 
-  Code({
+  const Code({
     super.key,
     required this.code
   });
@@ -22,14 +22,24 @@ class Code extends StatelessWidget{
           ),
         ),
         OutlinedButton.icon(
-          onPressed: () => _copyToClipboard(code, context),
+          onPressed: (){
+            Clipboard.setData(ClipboardData(text: code)).then((_) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                    AppLocalizations.of(context)!.copiedToClipboard,
+                  )
+                )
+              );
+            });
+          },
           style: ButtonStyle(
-              padding: WidgetStatePropertyAll(
+              padding: const WidgetStatePropertyAll(
                   EdgeInsets.symmetric(horizontal: 10, vertical: 6)),
-              minimumSize: WidgetStatePropertyAll(Size(0, 0)),
+              minimumSize: const WidgetStatePropertyAll(Size(0, 0)),
               shape: WidgetStatePropertyAll(RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8)))),
-          icon: Icon(Icons.copy),
+          icon: const Icon(Icons.copy),
           label: Text(
             AppLocalizations.of(context)!.tapToCopy,
             style: Theme.of(context).textTheme.labelSmall,
@@ -37,18 +47,6 @@ class Code extends StatelessWidget{
         ),
       ],
     );
-  }
-
-  void _copyToClipboard(String code, BuildContext context){
-    Clipboard.setData(ClipboardData(text: code)).then((_) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            AppLocalizations.of(context)!.copiedToClipboard,
-          )
-          )
-        );
-    });
   }
 
   Widget _createNumber(BuildContext context,String char){

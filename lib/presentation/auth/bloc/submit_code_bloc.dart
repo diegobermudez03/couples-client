@@ -1,6 +1,6 @@
 import 'package:couples_client_app/respositories/auth_repo.dart';
 import 'package:couples_client_app/shared/global_variables/tokens_management.dart';
-import 'package:couples_client_app/shared/messages/error_messages.dart';
+import 'package:couples_client_app/core/messages/error_messages.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SubmitCodeBloc extends Cubit<SubmitCodeState>{
@@ -10,7 +10,6 @@ class SubmitCodeBloc extends Cubit<SubmitCodeState>{
 
   void submitCode(String code) async{
     emit(SubmitCodeLoading());
-    await Future.delayed(Duration(seconds: 2));
     final refreshToken = await _tokens.getRefreshToken();
     int codeParsed;
     try{
@@ -21,7 +20,6 @@ class SubmitCodeBloc extends Cubit<SubmitCodeState>{
     }
     final response = await _repo.submitCoupleCode(refreshToken!, codeParsed);
     if(response.item2 != null){
-      print(response.item2!.error);
       switch(response.item2!.error){
         case errCantConnectWithYourself: emit(SubmitCodeFailed(SubmitCodeErrorMessage.cantVinculateWithYourself)); break;
         case errorCantCreateNewCouple: emit(SubmitCodeFailed(SubmitCodeErrorMessage.alreadyHasCouple)); break;

@@ -31,15 +31,15 @@ final router = GoRouter(routes: [
     path: routeDefault,
     builder: (_, __) => BlocProvider(
       create: (context) => GetIt.instance.get<LoadingBloc>(),
-      child: LoadingScreen(),
+      child: const LoadingScreen(),
     ),
-    pageBuilder: GoTransitions.fadeUpwards.call,
+    pageBuilder: GoTransitions.openUpwards.call,
   ),
   GoRoute(
     path: routeLoginPage,
     builder: (_, __) => BlocProvider(
       create: (context) => GetIt.instance.get<LoginBloc>(),
-      child: LoginScreen(),
+      child: const LoginScreen(),
     ),
     pageBuilder: GoTransitions.openUpwards.call,
   ),
@@ -47,14 +47,14 @@ final router = GoRouter(routes: [
     path: routeRegisterPage,
     builder: (_, __) => BlocProvider(
       create: (context) => GetIt.instance.get<RegisterBloc>(),
-      child: RegisterScreen(),
+      child: const RegisterScreen(),
     ),
     pageBuilder: GoTransitions.openUpwards.call,
   ),
   GoRoute(
     path: routeWelcomePage,
     builder: (_, __) => const WelcomeScreen(),
-    pageBuilder: GoTransitions.fadeUpwards.call,
+    pageBuilder: GoTransitions.openUpwards.call,
   ),
   GoRoute(
     path: routeLogUserPage,
@@ -71,13 +71,13 @@ final router = GoRouter(routes: [
           BlocProvider(create: (context) => GetIt.instance.get<SubmitCodeBloc>(),),
           BlocProvider(create: (context) => GetIt.instance.get<CreateCodeBloc>(),),
         ], 
-        child: ConnectCoupleScreen(),
+        child: const ConnectCoupleScreen(),
       ) ,
       pageBuilder: GoTransitions.slide.toLeft.withSettings(duration: const Duration(milliseconds: 300)).call),
   GoRoute(
     path: routeMainPage,
     builder: (_, __) => MainScreen(),
-    pageBuilder: GoTransitions.fadeUpwards.call,
+    pageBuilder: GoTransitions.openUpwards.call,
   ),
   GoRoute(
     path: routePartnerNicknamePage,

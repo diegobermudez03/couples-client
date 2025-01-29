@@ -1,7 +1,7 @@
 
 import 'package:couples_client_app/respositories/auth_repo.dart';
 import 'package:couples_client_app/shared/global_variables/tokens_management.dart';
-import 'package:couples_client_app/shared/messages/status_messags.dart';
+import 'package:couples_client_app/core/messages/status_messags.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoadingBloc extends Cubit<LoadingState>{
@@ -23,7 +23,6 @@ class LoadingBloc extends Cubit<LoadingState>{
       emit(GoToWelcomePage());
       return;
     }
-    print(status.item1);
     switch(status.item1){
       case statusNoUserCreated:
         emit(GoToUserPageState());

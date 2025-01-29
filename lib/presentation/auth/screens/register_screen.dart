@@ -4,6 +4,8 @@ import 'package:couples_client_app/presentation/auth/widgets/auth_field.dart';
 import 'package:couples_client_app/presentation/auth/widgets/google_auth_button.dart';
 import 'package:couples_client_app/presentation/auth/widgets/or_divider.dart';
 import 'package:couples_client_app/shared/dialogs/error_dialog.dart';
+import 'package:couples_client_app/shared/dialogs/success_dialog.dart';
+import 'package:couples_client_app/shared/widgets/gradient_background.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,11 +14,16 @@ import 'package:go_router/go_router.dart';
 import 'package:ionicons/ionicons.dart';
 
 class RegisterScreen extends StatefulWidget {
+
+  const RegisterScreen({
+    super.key
+  });
+
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _RegisterScreenState extends State<RegisterScreen> with TickerProviderStateMixin{
+class _RegisterScreenState extends State<RegisterScreen> with SingleTickerProviderStateMixin{
   late final TextEditingController emailController;
   late final TextEditingController passwordController;
   late final TextEditingController confirmPasswordController;
@@ -30,7 +37,7 @@ class _RegisterScreenState extends State<RegisterScreen> with TickerProviderStat
     confirmPasswordController = TextEditingController();
      _animationController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 500),
+      duration: const Duration(milliseconds: 800),
     );
     _expandedAnimation = Tween<double>(begin:1, end:24).animate(
       CurvedAnimation(
@@ -57,14 +64,9 @@ class _RegisterScreenState extends State<RegisterScreen> with TickerProviderStat
     final i10n = AppLocalizations.of(context)!;
     final bloc = BlocProvider.of<RegisterBloc>(context);
     final bool isKeyboardOpen = MediaQuery.of(context).viewInsets.bottom > 0;
-    return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [colorScheme.primary, colorScheme.tertiary],
-          begin: Alignment.topLeft,
-          end: Alignment.topRight,
-        ),
-      ),
+    return GradientBackground(
+      startColor: colorScheme.primary,
+      endColor: colorScheme.tertiary,
       child: Scaffold(
         appBar: AppBar(backgroundColor: Colors.transparent),
         backgroundColor: Colors.transparent,
@@ -81,7 +83,13 @@ class _RegisterScreenState extends State<RegisterScreen> with TickerProviderStat
               child: BlocListener<RegisterBloc, RegisterState>(
                 listener: (context, state) {
                   if(state is RegisterSuccessState){
-                    context.go(routeLogUserPage);
+                    showDialog(
+                      context: context,
+                      barrierDismissible: false, 
+                      builder: (ctx)=>SuccessDialog(
+                        callback:()=> context.go(routeLogUserPage),
+                      )
+                    );
                   }
                   if(state is RegsiterFailedState){
                     final String message = switch(state.message){
@@ -113,32 +121,7 @@ class _RegisterScreenState extends State<RegisterScreen> with TickerProviderStat
                           flex: isKeyboardOpen ? 0 : 4,
                           child: AnimatedSwitcher(
                             duration: const Duration(milliseconds: 1000),
-                            child: isKeyboardOpen ? const SizedBox() : Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 0),
-                            child: Column(
-                              children: [
-                                const Spacer(flex: 1,),
-                                Align(
-                                  alignment: Alignment.topLeft,
-                                  child: Text(
-                                    i10n.hello,
-                                    style: textTheme.displayMedium!.copyWith(
-                                      color: colorScheme.onPrimary,
-                                      fontWeight: FontWeight.bold
-                                    ),
-                                  ),
-                                ),
-                                Align(
-                                  alignment: Alignment.topLeft,
-                                  child: Text(
-                                    i10n.registerToGetStarted,
-                                    style: textTheme.bodyLarge!.copyWith(color: colorScheme.onPrimary),
-                                  ),
-                                ),
-                                const Spacer(flex: 7,),
-                              ],
-                            ),
-                          ),),
+                            child: isKeyboardOpen ? const SizedBox() : RegisterHeader(i10n: i10n, textTheme: textTheme, colorScheme: colorScheme),),
                         ),
                         AnimatedBuilder(
                           animation: _expandedAnimation,
@@ -280,3 +263,47 @@ class _RegisterScreenState extends State<RegisterScreen> with TickerProviderStat
     }
   }
 }
+
+class RegisterHeader extends StatelessWidget {
+  const RegisterHeader({
+    super.key,
+    required this.i10n,
+    required this.textTheme,
+    required this.colorScheme,
+  });
+
+  final AppLocalizations i10n;
+  final TextTheme textTheme;
+  final ColorScheme colorScheme;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 0),
+    child: Column(
+      children: [
+        const Spacer(flex: 1,),
+        Align(
+          alignment: Alignment.topLeft,
+          child: Text(
+            i10n.hello,
+            style: textTheme.displayMedium!.copyWith(
+              color: colorScheme.onPrimary,
+              fontWeight: FontWeight.bold
+            ),
+          ),
+        ),
+        Align(
+          alignment: Alignment.topLeft,
+          child: Text(
+            i10n.registerToGetStarted,
+            style: textTheme.bodyLarge!.copyWith(color: colorScheme.onPrimary),
+          ),
+        ),
+        const Spacer(flex: 7,),
+      ],
+    ),
+    );
+  }
+}
+

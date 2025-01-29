@@ -4,7 +4,7 @@ class OrDivider extends StatelessWidget{
 
   final String orText;
 
-  OrDivider({
+  const OrDivider({
     super.key,
     required this.orText
   });

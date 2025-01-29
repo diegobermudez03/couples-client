@@ -16,7 +16,7 @@ import 'package:get_it/get_it.dart';
 final depIn = GetIt.instance; 
 const mobileUrl = "http://10.0.2.2:8081/v1";
 const webUrl = "http://localhost:8081/v1";
-const url = webUrl;
+const url = mobileUrl;
 
 Future<void> initDependencies() async{
 

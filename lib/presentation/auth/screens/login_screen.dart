@@ -4,6 +4,8 @@ import 'package:couples_client_app/presentation/auth/widgets/auth_field.dart';
 import 'package:couples_client_app/presentation/auth/widgets/google_auth_button.dart';
 import 'package:couples_client_app/presentation/auth/widgets/or_divider.dart';
 import 'package:couples_client_app/shared/dialogs/error_dialog.dart';
+import 'package:couples_client_app/shared/dialogs/success_dialog.dart';
+import 'package:couples_client_app/shared/widgets/gradient_background.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,11 +14,13 @@ import 'package:go_router/go_router.dart';
 import 'package:ionicons/ionicons.dart';
 
 class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
+
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin{
+class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStateMixin{
   late final TextEditingController emailController;
   late final TextEditingController passwordController;
   late final AnimationController _animationController;
@@ -29,7 +33,7 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
     passwordController = TextEditingController();
     _animationController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 500),
+      duration: const Duration(milliseconds: 800),
     );
     _expandedAnimation = Tween<double>(begin:1, end:32).animate(
       CurvedAnimation(
@@ -58,14 +62,9 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
     final i10n = AppLocalizations.of(context)!;
     final bloc = BlocProvider.of<LoginBloc>(context);
     final bool isKeyboardOpen = MediaQuery.of(context).viewInsets.bottom > 0;
-    return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [colorScheme.primary, colorScheme.tertiary],
-          begin: Alignment.topLeft,
-          end: Alignment.topRight,
-        ),
-      ),
+    return GradientBackground(
+      startColor: colorScheme.primary,
+      endColor: colorScheme.tertiary,
       child: Scaffold(
         appBar: AppBar(backgroundColor: Colors.transparent),
         backgroundColor: Colors.transparent,
@@ -82,11 +81,21 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
               child: BlocListener<LoginBloc, LoginState>(
                 listener: (context, state) {
                   if(state is LoginSuccessState){
-                    switch(state.message){
-                      case LoginNavigateMessage.goToUserCreation: context.go(routeLogUserPage);break;
-                      case LoginNavigateMessage.goToCoupleConnection: context.go(routeConnectCouplePage);break;
-                      case LoginNavigateMessage.goToMainPage: context.go(routeMainPage);break;
-                    }
+                    showDialog(
+                      barrierDismissible: false,
+                      context: context, 
+                      builder: (ctx){
+                        return SuccessDialog(
+                          callback: () {
+                            switch(state.message){
+                              case LoginNavigateMessage.goToUserCreation: context.go(routeLogUserPage);break;
+                              case LoginNavigateMessage.goToCoupleConnection: context.go(routeConnectCouplePage);break;
+                              case LoginNavigateMessage.goToMainPage: context.go(routeMainPage);break;
+                            }
+                          },
+                        );
+                      }
+                    );
                   }
                   if(state is LoginFailedState){
                     final String message = switch(state.message){
@@ -117,32 +126,7 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
                           flex: isKeyboardOpen ? 0 : 12,
                           child: AnimatedSwitcher(
                             duration: const Duration(milliseconds: 1000),
-                            child: isKeyboardOpen ? const SizedBox() : Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-                            child: Column(
-                              children: [
-                                const Spacer(flex: 1,),
-                                Align(
-                                  alignment: Alignment.topLeft,
-                                  child: Text(
-                                    i10n.welcomeBack.replaceAll(' ', '\n'),
-                                    style: textTheme.displayMedium!.copyWith(
-                                      color: colorScheme.onPrimary,
-                                      fontWeight: FontWeight.bold
-                                    ),
-                                  ),
-                                ),
-                                Align(
-                                  alignment: Alignment.topLeft,
-                                  child: Text(
-                                    i10n.wereHappyToSeeYouAgain,
-                                    style: textTheme.bodyLarge!.copyWith(color: colorScheme.onPrimary),
-                                  ),
-                                ),
-                                const Spacer(flex: 7,),
-                              ],
-                            ),
-                          ),),
+                            child: isKeyboardOpen ? const SizedBox() : LoginHeader(i10n: i10n, textTheme: textTheme, colorScheme: colorScheme),),
                         ),
                         AnimatedBuilder(
                           animation: _animationController,
@@ -272,5 +256,48 @@ class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin
     } else {
       bloc.login(emailController.text, passwordController.text, 'UNKNOWN', 'WEB');
     }
+  }
+}
+
+class LoginHeader extends StatelessWidget {
+  const LoginHeader({
+    super.key,
+    required this.i10n,
+    required this.textTheme,
+    required this.colorScheme,
+  });
+
+  final AppLocalizations i10n;
+  final TextTheme textTheme;
+  final ColorScheme colorScheme;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+    child: Column(
+      children: [
+        const Spacer(flex: 1,),
+        Align(
+          alignment: Alignment.topLeft,
+          child: Text(
+            i10n.welcomeBack.replaceAll(' ', '\n'),
+            style: textTheme.displayMedium!.copyWith(
+              color: colorScheme.onPrimary,
+              fontWeight: FontWeight.bold
+            ),
+          ),
+        ),
+        Align(
+          alignment: Alignment.topLeft,
+          child: Text(
+            i10n.wereHappyToSeeYouAgain,
+            style: textTheme.bodyLarge!.copyWith(color: colorScheme.onPrimary),
+          ),
+        ),
+        const Spacer(flex: 7,),
+      ],
+    ),
+    );
   }
 }

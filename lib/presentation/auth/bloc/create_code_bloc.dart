@@ -3,8 +3,8 @@ import 'package:couples_client_app/core/utils/functions.dart';
 import 'package:couples_client_app/models/temp_couple.dart';
 import 'package:couples_client_app/respositories/auth_repo.dart';
 import 'package:couples_client_app/shared/global_variables/tokens_management.dart';
-import 'package:couples_client_app/shared/messages/error_messages.dart';
-import 'package:couples_client_app/shared/messages/status_messags.dart';
+import 'package:couples_client_app/core/messages/status_messags.dart';
+import 'package:couples_client_app/core/messages/error_messages.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CreateCodeBloc extends Cubit<CreateCodeState>{
@@ -45,7 +45,6 @@ class CreateCodeBloc extends Cubit<CreateCodeState>{
     final stream = _repo.connectSSECodeChannel(token);
     //in case there was a previous active connection we disconnect it
     _streamSubscription = stream.listen((data){
-      print("received data ${data.item1}");
       if(data.item2 != null){
         _streamSubscription?.cancel();
         _streamSubscription = null;

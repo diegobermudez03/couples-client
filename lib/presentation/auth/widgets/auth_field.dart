@@ -10,7 +10,7 @@ class AuthField extends StatefulWidget{
   final bool editable;
   final TextEditingController controller;
 
-  AuthField({
+  const AuthField({
     super.key,
     required this.icon,
     required this.hintText,

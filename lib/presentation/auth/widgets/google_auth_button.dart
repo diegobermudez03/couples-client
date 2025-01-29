@@ -1,3 +1,4 @@
+import 'package:couples_client_app/shared/func_helpers.dart';
 import 'package:flutter/material.dart';
 
 class GoogleAuthButton extends StatelessWidget{
@@ -16,7 +17,7 @@ class GoogleAuthButton extends StatelessWidget{
     return ElevatedButton(
       onPressed: handler, 
       style: ButtonStyle(
-        elevation: WidgetStatePropertyAll(3),
+        elevation: const WidgetStatePropertyAll(3),
 
         backgroundColor: WidgetStatePropertyAll(Theme.of(context).colorScheme.surfaceBright)
       ),
@@ -25,7 +26,7 @@ class GoogleAuthButton extends StatelessWidget{
           const Spacer(),
            Image.asset(
             height: 30,
-            'images/icons/google.png'
+            getAsset('images/icons/google.png')
 
           ),
           const Spacer(flex: 2,),

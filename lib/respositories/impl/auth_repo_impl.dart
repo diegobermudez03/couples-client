@@ -4,7 +4,7 @@ import 'package:couples_client_app/core/errors/errors.dart';
 import 'package:couples_client_app/models/temp_couple.dart';
 import 'package:couples_client_app/models/user_model.dart';
 import 'package:couples_client_app/respositories/auth_repo.dart';
-import 'package:couples_client_app/shared/messages/status_messags.dart';
+import 'package:couples_client_app/core/messages/status_messags.dart';
 import 'package:http/http.dart' as http;
 import 'package:tuple/tuple.dart';
 import 'package:eventflux/eventflux.dart';
@@ -207,9 +207,7 @@ class AuthRepoImpl implements AuthRepo{
         },
         onSuccessCallback: (response){
           response?.stream?.listen((data){
-            print("data received ${data.data} at ${DateTime.now()}");
             if(data.event.trim() == "close"){
-               print("closing streaming from close message");
               EventFlux.instance.disconnect();
               controller.close();
             }
@@ -222,7 +220,6 @@ class AuthRepoImpl implements AuthRepo{
         },
         onError: (oops){
           controller.add(Tuple2("", CustomError(oops.message!)));
-           print("closing streaming from error");
           controller.close();
           EventFlux.instance.disconnect();
         },
