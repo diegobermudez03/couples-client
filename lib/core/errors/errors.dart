@@ -6,5 +6,9 @@ class CustomError{
 }
 
 class NetworkError extends CustomError{
-  NetworkError(): super('Network error');
+  NetworkError(): super('NETWORK_ERROR');
+}
+
+class AuthError extends CustomError{
+  AuthError(): super("AUTH_ERROR");
 }

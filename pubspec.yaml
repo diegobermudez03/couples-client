@@ -65,6 +65,8 @@ dependencies:
   ip_country_lookup: ^1.0.3
   # for server sent events
   eventflux: ^2.2.1
+  # for UI loading
+  shimmer: ^3.0.0
   # for i10
   flutter_localizations:
     sdk: flutter

@@ -12,6 +12,8 @@ import 'package:couples_client_app/presentation/auth/screens/welcome_screen.dart
 import 'package:couples_client_app/presentation/loading/bloc/loading_bloc.dart';
 import 'package:couples_client_app/presentation/loading/screens/loading_screen.dart';
 import 'package:couples_client_app/presentation/main/screens/main_screen.dart';
+import 'package:couples_client_app/presentation/quizzes/bloc/quizzes_homepage_bloc.dart';
+import 'package:couples_client_app/presentation/quizzes/screens/quizzes_homepage.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
@@ -25,6 +27,7 @@ const String routeLogUserPage = "/auth/user";
 const String routeConnectCouplePage = "/auth/couple";
 const String routeMainPage = "/main";
 const String routePartnerNicknamePage = "/users/nickname";
+const String routeQuizzesHomepage = "/quizzes/homepage";
 
 final router = GoRouter(routes: [
   GoRoute(
@@ -80,7 +83,15 @@ final router = GoRouter(routes: [
     pageBuilder: GoTransitions.openUpwards.call,
   ),
   GoRoute(
+    path: routeQuizzesHomepage,
+    builder: (_, __) => BlocProvider(
+      create: (context) => GetIt.instance.get<QuizzesHomepageBloc>(),
+      child: const QuizzesHomepage(),
+    ),
+    pageBuilder: GoTransitions.openUpwards.call,
+  ),
+  /*GoRoute(
     path: routePartnerNicknamePage,
     builder: (_, __) => NicknameScreen(),
-    pageBuilder: GoTransitions.slide.toLeft.withSettings(duration: const Duration(milliseconds: 300)).call),
+    pageBuilder: GoTransitions.slide.toLeft.withSettings(duration: const Duration(milliseconds: 300)).call),*/
 ]);

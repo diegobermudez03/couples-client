@@ -1,7 +1,7 @@
 import 'package:couples_client_app/models/user_model.dart';
 import 'package:couples_client_app/respositories/auth_repo.dart';
 import 'package:couples_client_app/services/localization_services/local_service.dart';
-import 'package:couples_client_app/shared/global_variables/tokens_management.dart';
+import 'package:couples_client_app/services/tokens_management.dart';
 import 'package:couples_client_app/core/messages/error_messages.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

@@ -1,53 +1,52 @@
-import 'package:couples_client_app/shared/global_variables/tokens_management.dart';
+import 'dart:convert';
+
+import 'package:couples_client_app/core/errors/errors.dart';
+import 'package:couples_client_app/services/tokens_management.dart';
 import 'package:http/http.dart' as http;
+import 'package:tuple/tuple.dart';
 
 class HttpClient {
-  final String baseUrl;
-  String? accessToken;
   final TokensManagement _token;
+  final String _url;
 
-  HttpClient(this.baseUrl, this._token);
+  HttpClient(this._url, this._token);
 
-
-  /*Future<http.Response> _sendRequest(http.Request request) async {
-    if (accessToken != null) {
-      request.headers['Authorization'] = 'Bearer $accessToken';
-    }
-
-    final streamedResponse = await request.send();
-    final response = await http.Response.fromStream(streamedResponse);
-
-    // Si el token expiró, intenta renovarlo
-    if (response.statusCode == 401 && refreshToken != null) {
-      final newToken = await _refreshAccessToken();
-
-      if (newToken != null) {
-        accessToken = newToken;
-
-        // Reintenta la solicitud con el nuevo token
-        request.headers['Authorization'] = 'Bearer $accessToken';
-        final retryStreamedResponse = await request.send();
-        return http.Response.fromStream(retryStreamedResponse);
+  Future<Tuple2<T, CustomError?>> sendRequest<T>(Future<Tuple2<T, CustomError?>>Function(Map<String, String>) request, T returnValue) async{
+    try{
+      if(_token.getAccessToken() == null){
+        await _refreshAccessToken();
       }
+      Map<String, String> headers = {
+        "Bearer" : _token.getAccessToken()!
+      };
+      return request(headers);
+    }catch(error){
+      return Tuple2(returnValue,NetworkError());
     }
-
-    // Devuelve la respuesta original o la de reintento
-    return response;
   }
 
-   Future<String?> _refreshAccessToken() async {
-    // Lógica para renovar el token
-    final response = await http.post(
-      Uri.parse('$baseUrl/refresh'),
-      body: jsonEncode({'refreshToken': refreshToken}),
-      headers: {'Content-Type': 'application/json'},
-    );
+  Future<bool> _refreshAccessToken()async{
+    try{
+      final url = Uri.parse('$_url/accessToken');
+      final rToken = await _token.getRefreshToken();
+      if(rToken == null) return false;
 
-    if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
-      return data['accessToken'];
+      final response = await http.post(url, body: jsonEncode({
+        "refreshToken" : rToken
+      }));
+
+      if(response.statusCode >= 400){
+        return false;
+      }
+      final body = jsonDecode(response.body);
+      _token.setAccessToken(body["accessToken"]);
+      if(body["refreshToken"] != null){
+        _token.setRefreshToken(body["refreshToken"]);
+      }
+      return true;
+    }catch(err){
+      return false;
     }
+  }
 
-    return null;
-   }*/
 }
